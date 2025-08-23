@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ant Design 样式覆盖 */
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-layout-header {
+  padding: 0 24px;
+}
+
+.ant-layout-content {
+  margin: 24px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+}
+
+.ant-menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.ant-menu-item .anticon {
+  margin-right: 8px;
+}
+
+/* 自定义样式 */
+.dashboard-card {
+  @apply bg-gradient-to-r from-blue-500 to-blue-600 text-white;
+}
+
+.dashboard-card .ant-card-body {
+  @apply text-white;
+}
+
+.dashboard-card .ant-statistic-title {
+  @apply text-white opacity-90;
+}
+
+.dashboard-card .ant-statistic-content {
+  @apply text-white;
+}
+
+.table-operations {
+  @apply mb-4 flex justify-between items-center;
+}
+
+.page-header {
+  @apply mb-6 pb-4 border-b border-gray-200;
+}
+
+.content-card {
+  @apply bg-white rounded-lg shadow-sm border;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .ant-layout-content {
+    margin: 16px;
+    padding: 16px;
+  }
+  
+  .table-operations {
+    @apply flex-col gap-4;
+  }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .content-card {
+    @apply bg-gray-800 border-gray-700;
+  }
+}

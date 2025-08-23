@@ -1,0 +1,76 @@
+{
+  "stats": {
+    "totalRegistrations": 1248,
+    "totalProjects": 890,
+    "totalJudges": 45,
+    "avgScore": 4.2,
+    "registrationGrowth": 15.3,
+    "projectGrowth": 12.8,
+    "judgeGrowth": 8.5,
+    "scoreGrowth": 2.1
+  },
+  "tracks": [
+    {
+      "id": "1",
+      "name": "创意设计",
+      "description": "注重创新思维和设计美感的作品",
+      "registrationCount": 245,
+      "color": "#1890ff"
+    },
+    {
+      "id": "2",
+      "name": "技术创新",
+      "description": "以技术突破和创新应用为主的作品",
+      "registrationCount": 198,
+      "color": "#52c41a"
+    },
+    {
+      "id": "3",
+      "name": "文化传播",
+      "description": "弘扬传统文化，创新传播方式",
+      "registrationCount": 167,
+      "color": "#722ed1"
+    },
+    {
+      "id": "4",
+      "name": "商业模式",
+      "description": "具有商业价值和市场潜力的创新模式",
+      "registrationCount": 134,
+      "color": "#fa8c16"
+    },
+    {
+      "id": "5",
+      "name": "社会公益",
+      "description": "关注社会问题，提供公益解决方案",
+      "registrationCount": 112,
+      "color": "#13c2c2"
+    },
+    {
+      "id": "6",
+      "name": "综合创新",
+      "description": "跨领域综合性创新项目",
+      "registrationCount": 89,
+      "color": "#eb2f96"
+    }
+  ],
+  "demoAccounts": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "role": "超级管理员",
+      "description": "拥有所有权限，可以管理整个系统"
+    },
+    {
+      "username": "content",
+      "password": "content123",
+      "role": "内容管理员",
+      "description": "负责内容管理和用户管理"
+    },
+    {
+      "username": "judge",
+      "password": "judge123",
+      "role": "评委专家",
+      "description": "参与项目评审和评分"
+    }
+  ]
+}
