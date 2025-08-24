@@ -28,6 +28,7 @@ import { Line, Column } from '@ant-design/charts';
 import useAuth from '../hooks/useAuth';
 import { useAPI } from '../hooks/useAPI';
 import { userAPI } from '../services/api';
+import defaultAvatar from '@/assets/images/default-avatar.jpg';
 
 const { Title, Text } = Typography;
 
@@ -121,7 +122,7 @@ const Dashboard: React.FC = () => {
       user: '张三',
       action: '提交了新的报名申请',
       time: '2分钟前',
-      avatar: './images/default-avatar.jpg'
+      avatar: defaultAvatar
     },
     {
       id: 2,
@@ -129,7 +130,7 @@ const Dashboard: React.FC = () => {
       user: '李教授',
       action: '完成了项目评审',
       time: '15分钟前',
-      avatar: './images/default-avatar.jpg'
+      avatar: defaultAvatar
     },
     {
       id: 3,
@@ -137,7 +138,7 @@ const Dashboard: React.FC = () => {
       user: '王管理员',
       action: '审核通过了一个项目',
       time: '1小时前',
-      avatar: './images/default-avatar.jpg'
+      avatar: defaultAvatar
     },
     {
       id: 4,
@@ -145,7 +146,7 @@ const Dashboard: React.FC = () => {
       user: '赵编辑',
       action: '发布了新的赛事公告',
       time: '2小时前',
-      avatar: './images/default-avatar.jpg'
+      avatar: defaultAvatar
     }
   ];
 

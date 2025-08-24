@@ -36,6 +36,8 @@ import {
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
+import defaultAvatar from '@/assets/images/default-avatar.jpg';
+import newsPlaceholder from '@/assets/images/news-placeholder.jpg';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -106,7 +108,7 @@ const ContentManagement: React.FC = () => {
       featured: true,
       category: '赛事公告',
       tags: ['大赛启动', '报名开放'],
-      coverImage: './images/news-placeholder.jpg'
+      coverImage: newsPlaceholder
     },
     {
       id: '2',
@@ -121,7 +123,7 @@ const ContentManagement: React.FC = () => {
       featured: false,
       category: '专家介绍',
       tags: ['专家评委', '权威专家'],
-      coverImage: './images/news-placeholder.jpg'
+      coverImage: newsPlaceholder
     },
     {
       id: '3',
@@ -136,7 +138,7 @@ const ContentManagement: React.FC = () => {
       featured: false,
       category: '参赛指南',
       tags: ['报名指南', '作品准备'],
-      coverImage: './images/news-placeholder.jpg'
+      coverImage: newsPlaceholder
     }
   ];
 
@@ -146,7 +148,7 @@ const ContentManagement: React.FC = () => {
       id: '1',
       title: '2025白塔杯主视觉',
       description: '大赛主要宣传图片',
-      imageUrl: './images/news-placeholder.jpg',
+      imageUrl: newsPlaceholder,
       linkUrl: '/registration',
       position: 1,
       active: true,
@@ -157,7 +159,7 @@ const ContentManagement: React.FC = () => {
       id: '2',
       title: '专家评委介绍',
       description: '权威专家阵容展示',
-      imageUrl: './images/news-placeholder.jpg',
+      imageUrl: newsPlaceholder,
       linkUrl: '/experts',
       position: 2,
       active: true,
@@ -175,7 +177,7 @@ const ContentManagement: React.FC = () => {
       institution: '清华大学',
       expertise: ['工业设计', '交互设计', '用户体验'],
       bio: '王教授是国内知名的设计学者，在工业设计领域有着丰富的经验。',
-      avatar: './images/default-avatar.jpg',
+      avatar: defaultAvatar,
       email: 'wang.prof@tsinghua.edu.cn',
       phone: '138****1234',
       active: true
@@ -187,7 +189,7 @@ const ContentManagement: React.FC = () => {
       institution: '北京大学',
       expertise: ['人工智能', '机器学习', '数据挺掘'],
       bio: '李博士专注于人工智能的理论研究和应用实践。',
-      avatar: './images/default-avatar.jpg',
+      avatar: defaultAvatar,
       email: 'li.dr@pku.edu.cn',
       phone: '139****5678',
       active: true

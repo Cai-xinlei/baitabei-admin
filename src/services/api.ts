@@ -9,6 +9,7 @@
 
 import axios from 'axios';
 import { message } from 'antd';
+import defaultAvatar from '@/assets/images/default-avatar.jpg';
 
 // API基础配置
 const API_CONFIG = {
@@ -113,7 +114,7 @@ export const userAPI = {
         realName: '张三',
         role: 'participant',
         status: 'active',
-        avatar: './images/default-avatar.jpg',
+        avatar: defaultAvatar,
         registrationDate: '2025-01-15',
         lastLogin: '2025-01-29',
         participationCount: 3

@@ -1,9 +1,8 @@
 # 忽略node_modules目录
 node_modules/
-
+dist/            # 构建产物目录
 # 可选：添加其他常见忽略项（根据需要）
 .DS_Store        # Mac系统文件
 .env             # 环境变量文件
-dist/            # 构建产物目录
 coverage/        # 测试覆盖率报告
 *.log            # 日志文件

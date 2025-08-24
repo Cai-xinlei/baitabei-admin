@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import { message } from 'antd';
+import defaultAvatar from '@/assets/images/default-avatar.jpg';
 
 interface User {
   id: string;
@@ -29,7 +30,7 @@ const mockUsers = [
     email: 'admin@baitabei.com',
     role: 'super_admin' as const,
     realName: '系统管理员',
-    avatar: './images/default-avatar.jpg'
+    avatar: defaultAvatar
   },
   {
     id: '2',
@@ -38,7 +39,7 @@ const mockUsers = [
     email: 'content@baitabei.com',
     role: 'content_manager' as const,
     realName: '内容管理员',
-    avatar: './images/default-avatar.jpg'
+    avatar: defaultAvatar
   },
   {
     id: '3',
@@ -47,7 +48,7 @@ const mockUsers = [
     email: 'judge@baitabei.com',
     role: 'judge' as const,
     realName: '评委专家',
-    avatar: './images/default-avatar.jpg'
+    avatar: defaultAvatar
   }
 ];
 
