@@ -95,8 +95,8 @@ const ProjectManagement: React.FC = () => {
           { name: '技术方案.docx', url: '/files/tech1.docx', size: '1.8MB' }
         ],
         images: [
-          { name: '系统界面.png', url: '/images/ui1.png', size: '3.2MB' },
-          { name: '架构图.jpg', url: '/images/arch1.jpg', size: '1.5MB' }
+          { name: '系统界面.png', url: './images/ui1.png', size: '3.2MB' },
+          { name: '架构图.jpg', url: './images/arch1.jpg', size: '1.5MB' }
         ],
         videos: [
           { name: '作品演示.mp4', url: '/videos/demo1.mp4', size: '15.2MB' }
@@ -124,7 +124,7 @@ const ProjectManagement: React.FC = () => {
           { name: '白皮书.pdf', url: '/files/whitepaper2.pdf', size: '2.8MB' }
         ],
         images: [
-          { name: '系统架构图.png', url: '/images/arch2.png', size: '1.8MB' }
+          { name: '系统架构图.png', url: './images/arch2.png', size: '1.8MB' }
         ],
         videos: []
       },
@@ -150,7 +150,7 @@ const ProjectManagement: React.FC = () => {
           { name: '项目介绍.pdf', url: '/files/intro3.pdf', size: '4.2MB' }
         ],
         images: [
-          { name: 'VR体验截图.jpg', url: '/images/vr3.jpg', size: '2.1MB' }
+          { name: 'VR体验截图.jpg', url: './images/vr3.jpg', size: '2.1MB' }
         ],
         videos: [
           { name: 'VR演示视频.mp4', url: '/videos/vr3.mp4', size: '28.5MB' }
@@ -361,14 +361,14 @@ const ProjectManagement: React.FC = () => {
   };
 
   const filteredProjects = projects.filter(project => {
-    const matchesSearch = !searchText || 
+    const matchesSearch = !searchText ||
       project.title.toLowerCase().includes(searchText.toLowerCase()) ||
       project.author.toLowerCase().includes(searchText.toLowerCase()) ||
       project.description.toLowerCase().includes(searchText.toLowerCase());
-    
+
     const matchesTrack = !trackFilter || project.track === trackFilter;
     const matchesStatus = !statusFilter || project.status === statusFilter;
-    
+
     return matchesSearch && matchesTrack && matchesStatus;
   });
 
@@ -488,15 +488,15 @@ const ProjectManagement: React.FC = () => {
                 <Descriptions.Item label="状态">
                   <Tag color={
                     selectedProject.status === 'submitted' ? 'blue' :
-                    selectedProject.status === 'reviewing' ? 'orange' :
-                    selectedProject.status === 'approved' ? 'green' :
-                    selectedProject.status === 'finalist' ? 'gold' : 'red'
+                      selectedProject.status === 'reviewing' ? 'orange' :
+                        selectedProject.status === 'approved' ? 'green' :
+                          selectedProject.status === 'finalist' ? 'gold' : 'red'
                   }>
                     {
                       selectedProject.status === 'submitted' ? '已提交' :
-                      selectedProject.status === 'reviewing' ? '评审中' :
-                      selectedProject.status === 'approved' ? '已通过' :
-                      selectedProject.status === 'finalist' ? '入围作品' : '已拒绝'
+                        selectedProject.status === 'reviewing' ? '评审中' :
+                          selectedProject.status === 'approved' ? '已通过' :
+                            selectedProject.status === 'finalist' ? '入围作品' : '已拒绝'
                     }
                   </Tag>
                 </Descriptions.Item>
@@ -533,9 +533,9 @@ const ProjectManagement: React.FC = () => {
               <Card title="评审结果">
                 <Row gutter={[16, 16]}>
                   <Col span={12}>
-                    <Statistic 
-                      title="平均评分" 
-                      value={selectedProject.evaluationScore} 
+                    <Statistic
+                      title="平均评分"
+                      value={selectedProject.evaluationScore}
                       precision={1}
                       suffix={<div><Rate disabled value={selectedProject.evaluationScore} allowHalf /></div>}
                     />
@@ -558,8 +558,8 @@ const ProjectManagement: React.FC = () => {
                     renderItem={(item) => (
                       <List.Item
                         actions={[
-                          <Button 
-                            type="link" 
+                          <Button
+                            type="link"
                             icon={<DownloadOutlined />}
                             onClick={() => message.info('正在下载...')}
                           >
@@ -590,13 +590,13 @@ const ProjectManagement: React.FC = () => {
                           cover={
                             <Image
                               height={150}
-                              src={`/images/news-placeholder.jpg`}
+                              src={`./images/news-placeholder.jpg`}
                               fallback="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAADDCAYAAADQvc6UAAABRWlDQ1BJQ0MgUHJvZmlsZQAAKJFjYGASSSwoyGFhYGDIzSspCnJ3UoiIjFJgf8LAwSDCIMogwMCcmFxc4BgQ4ANUwgCjUcG3awyMIPqyLsis7PPOq3QdDFcvjV3jOD1boQVTPQrgSkktTgbSf4A4LbmgqISBgTEFyFYuLykAsTuAbJEioKOA7DkgdjqEvQHEToKwj4DVhAQ5A9k3gGyB5IxEoBmML4BsnSQk8XQkNtReEOBxcfXxUQg1Mjc0dyHgXNJBSWpFCYh2zi+oLMpMzyhRcASGUqqCZ16yno6CkYGRAQMDKMwhqj/fAIcloxgHQqxAjIHBEugw5sUIsSQpBobtQPdLciLEVJYzMPBHMDBsayhILEqEO4DxG0txmrERhM29nYGBddr//5/DGRjYNRkY/l7////39v///y4Dmn+LgeHANwDrkl1AuO+pmgAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAwqADAAQAAAABAAAAwwAAAAD9b/HnAAAHlklEQVR4Ae3dP3Ik1RUG8O+L0s2jL"
                             />
                           }
                           actions={[
-                            <Button 
-                              type="link" 
+                            <Button
+                              type="link"
                               icon={<DownloadOutlined />}
                               onClick={() => message.info('正在下载...')}
                             >
@@ -624,8 +624,8 @@ const ProjectManagement: React.FC = () => {
                     renderItem={(item) => (
                       <List.Item
                         actions={[
-                          <Button 
-                            type="link" 
+                          <Button
+                            type="link"
                             icon={<DownloadOutlined />}
                             onClick={() => message.info('正在下载...')}
                           >
@@ -656,8 +656,8 @@ const ProjectManagement: React.FC = () => {
                 </Col>
                 <Col span={8}>
                   <Statistic title="文件数量" value={
-                    selectedProject.files.documents.length + 
-                    selectedProject.files.images.length + 
+                    selectedProject.files.documents.length +
+                    selectedProject.files.images.length +
                     selectedProject.files.videos.length
                   } prefix={<FileTextOutlined />} />
                 </Col>

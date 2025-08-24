@@ -113,7 +113,7 @@ export const userAPI = {
         realName: '张三',
         role: 'participant',
         status: 'active',
-        avatar: '/images/default-avatar.jpg',
+        avatar: './images/default-avatar.jpg',
         registrationDate: '2025-01-15',
         lastLogin: '2025-01-29',
         participationCount: 3

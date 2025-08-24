@@ -33,7 +33,7 @@ const { Title, Text } = Typography;
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
-  
+
   // 获取仪表板统计数据
   const {
     data: dashboardData,
@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
     // TODO: 连接Java后端获取真实统计数据
     console.log('🔌 加载仪表板数据');
     await new Promise(resolve => setTimeout(resolve, 800));
-    
+
     return {
       totalRegistrations: 1248,
       todayRegistrations: 156,
@@ -121,7 +121,7 @@ const Dashboard: React.FC = () => {
       user: '张三',
       action: '提交了新的报名申请',
       time: '2分钟前',
-      avatar: '/images/default-avatar.jpg'
+      avatar: './images/default-avatar.jpg'
     },
     {
       id: 2,
@@ -129,7 +129,7 @@ const Dashboard: React.FC = () => {
       user: '李教授',
       action: '完成了项目评审',
       time: '15分钟前',
-      avatar: '/images/default-avatar.jpg'
+      avatar: './images/default-avatar.jpg'
     },
     {
       id: 3,
@@ -137,7 +137,7 @@ const Dashboard: React.FC = () => {
       user: '王管理员',
       action: '审核通过了一个项目',
       time: '1小时前',
-      avatar: '/images/default-avatar.jpg'
+      avatar: './images/default-avatar.jpg'
     },
     {
       id: 4,
@@ -145,7 +145,7 @@ const Dashboard: React.FC = () => {
       user: '赵编辑',
       action: '发布了新的赛事公告',
       time: '2小时前',
-      avatar: '/images/default-avatar.jpg'
+      avatar: './images/default-avatar.jpg'
     }
   ];
 
@@ -219,9 +219,9 @@ const Dashboard: React.FC = () => {
           仪表板
         </Title>
         <Text className="text-gray-600">
-          欢迎回来，{user?.realName}！今天是 {new Date().toLocaleDateString('zh-CN', { 
-            year: 'numeric', 
-            month: 'long', 
+          欢迎回来，{user?.realName}！今天是 {new Date().toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: 'long',
             day: 'numeric',
             weekday: 'long'
           })}
@@ -247,7 +247,7 @@ const Dashboard: React.FC = () => {
                 ) : (
                   <ArrowDownOutlined className="text-red-500 mr-1" />
                 )}
-                <Text 
+                <Text
                   className={stat.change > 0 ? 'text-green-500' : 'text-red-500'}
                   style={{ fontSize: '12px' }}
                 >
@@ -262,14 +262,14 @@ const Dashboard: React.FC = () => {
       <Row gutter={[16, 16]}>
         {/* 报名趋势 */}
         <Col xs={24} lg={12}>
-          <Card 
-            title="报名趋势" 
+          <Card
+            title="报名趋势"
             className="h-80"
             loading={statsLoading}
             extra={
-              <Button 
-                type="link" 
-                icon={<ReloadOutlined />} 
+              <Button
+                type="link"
+                icon={<ReloadOutlined />}
                 onClick={() => loadDashboardData()}
                 size="small"
               >
@@ -285,8 +285,8 @@ const Dashboard: React.FC = () => {
 
         {/* 赛道分布 */}
         <Col xs={24} lg={12}>
-          <Card 
-            title="赛道分布" 
+          <Card
+            title="赛道分布"
             className="h-80"
             loading={statsLoading}
           >
@@ -300,8 +300,8 @@ const Dashboard: React.FC = () => {
       <Row gutter={[16, 16]}>
         {/* 最近动态 */}
         <Col xs={24} lg={12}>
-          <Card 
-            title="最近动态" 
+          <Card
+            title="最近动态"
             extra={<Button type="link" icon={<EyeOutlined />}>查看更多</Button>}
           >
             <List
@@ -314,17 +314,17 @@ const Dashboard: React.FC = () => {
                     title={
                       <Space>
                         <Text strong>{item.user}</Text>
-                        <Tag 
+                        <Tag
                           color={
                             item.type === 'registration' ? 'blue' :
-                            item.type === 'evaluation' ? 'green' :
-                            item.type === 'approval' ? 'orange' : 'purple'
+                              item.type === 'evaluation' ? 'green' :
+                                item.type === 'approval' ? 'orange' : 'purple'
                           }
                         >
                           {
                             item.type === 'registration' ? '报名' :
-                            item.type === 'evaluation' ? '评审' :
-                            item.type === 'approval' ? '审核' : '内容'
+                              item.type === 'evaluation' ? '评审' :
+                                item.type === 'approval' ? '审核' : '内容'
                           }
                         </Tag>
                       </Space>

@@ -106,7 +106,7 @@ const ContentManagement: React.FC = () => {
       featured: true,
       category: '赛事公告',
       tags: ['大赛启动', '报名开放'],
-      coverImage: '/images/news-placeholder.jpg'
+      coverImage: './images/news-placeholder.jpg'
     },
     {
       id: '2',
@@ -121,7 +121,7 @@ const ContentManagement: React.FC = () => {
       featured: false,
       category: '专家介绍',
       tags: ['专家评委', '权威专家'],
-      coverImage: '/images/news-placeholder.jpg'
+      coverImage: './images/news-placeholder.jpg'
     },
     {
       id: '3',
@@ -136,7 +136,7 @@ const ContentManagement: React.FC = () => {
       featured: false,
       category: '参赛指南',
       tags: ['报名指南', '作品准备'],
-      coverImage: '/images/news-placeholder.jpg'
+      coverImage: './images/news-placeholder.jpg'
     }
   ];
 
@@ -146,7 +146,7 @@ const ContentManagement: React.FC = () => {
       id: '1',
       title: '2025白塔杯主视觉',
       description: '大赛主要宣传图片',
-      imageUrl: '/images/news-placeholder.jpg',
+      imageUrl: './images/news-placeholder.jpg',
       linkUrl: '/registration',
       position: 1,
       active: true,
@@ -157,7 +157,7 @@ const ContentManagement: React.FC = () => {
       id: '2',
       title: '专家评委介绍',
       description: '权威专家阵容展示',
-      imageUrl: '/images/news-placeholder.jpg',
+      imageUrl: './images/news-placeholder.jpg',
       linkUrl: '/experts',
       position: 2,
       active: true,
@@ -175,7 +175,7 @@ const ContentManagement: React.FC = () => {
       institution: '清华大学',
       expertise: ['工业设计', '交互设计', '用户体验'],
       bio: '王教授是国内知名的设计学者，在工业设计领域有着丰富的经验。',
-      avatar: '/images/default-avatar.jpg',
+      avatar: './images/default-avatar.jpg',
       email: 'wang.prof@tsinghua.edu.cn',
       phone: '138****1234',
       active: true
@@ -187,7 +187,7 @@ const ContentManagement: React.FC = () => {
       institution: '北京大学',
       expertise: ['人工智能', '机器学习', '数据挺掘'],
       bio: '李博士专注于人工智能的理论研究和应用实践。',
-      avatar: '/images/default-avatar.jpg',
+      avatar: './images/default-avatar.jpg',
       email: 'li.dr@pku.edu.cn',
       phone: '139****5678',
       active: true
@@ -256,10 +256,10 @@ const ContentManagement: React.FC = () => {
         <Space>
           <Tag color={
             status === 'published' ? 'green' :
-            status === 'draft' ? 'orange' : 'gray'
+              status === 'draft' ? 'orange' : 'gray'
           }>
             {status === 'published' ? '已发布' :
-             status === 'draft' ? '草稿' : '已归档'}
+              status === 'draft' ? '草稿' : '已归档'}
           </Tag>
           {record.featured && <Tag color="red">置顶</Tag>}
         </Space>
@@ -520,7 +520,7 @@ const ContentManagement: React.FC = () => {
             lastModified: dayjs().format('YYYY-MM-DD')
           })
         };
-        
+
         if (activeTab === 'news') {
           setNews([...news, newItem]);
         } else if (activeTab === 'banners') {
@@ -649,9 +649,9 @@ const ContentManagement: React.FC = () => {
       <Row gutter={[16, 16]}>
         <Col xs={24} sm={8}>
           <Card>
-            <Statistic 
-              title="新闻文章" 
-              value={contentStats.totalNews} 
+            <Statistic
+              title="新闻文章"
+              value={contentStats.totalNews}
               prefix={<FileTextOutlined />}
               suffix={`/ ${contentStats.publishedNews}已发布`}
             />
@@ -659,9 +659,9 @@ const ContentManagement: React.FC = () => {
         </Col>
         <Col xs={24} sm={8}>
           <Card>
-            <Statistic 
-              title="轮播图片" 
-              value={contentStats.totalBanners} 
+            <Statistic
+              title="轮播图片"
+              value={contentStats.totalBanners}
               prefix={<PictureOutlined />}
               suffix={`/ ${contentStats.activeBanners}激活`}
             />
@@ -669,9 +669,9 @@ const ContentManagement: React.FC = () => {
         </Col>
         <Col xs={24} sm={8}>
           <Card>
-            <Statistic 
-              title="专家信息" 
-              value={contentStats.totalExperts} 
+            <Statistic
+              title="专家信息"
+              value={contentStats.totalExperts}
               prefix={<UserOutlined />}
               suffix={`/ ${contentStats.activeExperts}激活`}
             />
@@ -700,7 +700,7 @@ const ContentManagement: React.FC = () => {
           >
             新增
             {activeTab === 'news' ? '文章' :
-             activeTab === 'banners' ? '轮播图' : '专家'}
+              activeTab === 'banners' ? '轮播图' : '专家'}
           </Button>
         </div>
 
@@ -721,7 +721,7 @@ const ContentManagement: React.FC = () => {
       <Drawer
         title={
           editingItem?.mode === 'view' ? '查看详情' :
-          editingItem?.id ? '编辑' : '新增'
+            editingItem?.id ? '编辑' : '新增'
         }
         width={600}
         onClose={() => {

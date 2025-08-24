@@ -29,7 +29,7 @@ const mockUsers = [
     email: 'admin@baitabei.com',
     role: 'super_admin' as const,
     realName: '系统管理员',
-    avatar: '/images/default-avatar.jpg'
+    avatar: './images/default-avatar.jpg'
   },
   {
     id: '2',
@@ -38,7 +38,7 @@ const mockUsers = [
     email: 'content@baitabei.com',
     role: 'content_manager' as const,
     realName: '内容管理员',
-    avatar: '/images/default-avatar.jpg'
+    avatar: './images/default-avatar.jpg'
   },
   {
     id: '3',
@@ -47,7 +47,7 @@ const mockUsers = [
     email: 'judge@baitabei.com',
     role: 'judge' as const,
     realName: '评委专家',
-    avatar: '/images/default-avatar.jpg'
+    avatar: './images/default-avatar.jpg'
   }
 ];
 
@@ -73,7 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       // 模拟登录请求
       const user = mockUsers.find(u => u.username === username && u.password === password);
-      
+
       if (user) {
         const { password: _, ...userWithoutPassword } = user;
         setUser(userWithoutPassword);
@@ -100,17 +100,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const hasPermission = (permission: string): boolean => {
     if (!user) return false;
-    
+
     // 超级管理员拥有所有权限
     if (user.role === 'super_admin') return true;
-    
+
     // 根据角色判断权限
     const rolePermissions = {
       content_manager: ['content:read', 'content:write', 'users:read', 'registrations:read'],
       judge_manager: ['judges:read', 'judges:write', 'evaluation:read', 'evaluation:write'],
       judge: ['evaluation:read', 'evaluation:write']
     };
-    
+
     return rolePermissions[user.role]?.includes(permission) || false;
   };
 
