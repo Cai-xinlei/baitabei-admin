@@ -411,6 +411,8 @@ const RegistrationManagement: React.FC = () => {
         <Table
           columns={columns}
           dataSource={filteredRegistrations}
+          tableLayout="fixed"
+          scroll={{ x: 'max-content' }}
           rowKey="id"
           loading={loading}
           pagination={{

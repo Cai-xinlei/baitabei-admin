@@ -239,9 +239,9 @@ const DataStatistics: React.FC = () => {
       key: 'progress',
       render: (_, record: any) => (
         <div className="flex items-center space-x-2">
-          <Progress 
-            percent={record.progress} 
-            size="small" 
+          <Progress
+            percent={record.progress}
+            size="small"
             style={{ minWidth: 100 }}
             status={record.progress >= 80 ? 'success' : 'active'}
           />
@@ -266,7 +266,7 @@ const DataStatistics: React.FC = () => {
         <div className="flex justify-between items-center">
           <Space>
             <Text strong>筛选条件：</Text>
-            <RangePicker 
+            <RangePicker
               value={dateRange}
               onChange={(dates) => setDateRange(dates as [dayjs.Dayjs, dayjs.Dayjs])}
             />
@@ -390,6 +390,8 @@ const DataStatistics: React.FC = () => {
           <Card title="评审进度">
             <Table
               columns={progressColumns}
+              tableLayout="fixed"
+              scroll={{ x: 'max-content' }}
               dataSource={evaluationProgress}
               rowKey="judge"
               pagination={false}

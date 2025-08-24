@@ -61,7 +61,7 @@ const UserManagement: React.FC = () => {
   const [roleFilter, setRoleFilter] = useState<string>('');
   const [statusFilter, setStatusFilter] = useState<string>('');
   const [form] = Form.useForm();
-  
+
   // 获取用户列表
   const {
     data: userListData,
@@ -71,18 +71,18 @@ const UserManagement: React.FC = () => {
     search: searchText,
     role: roleFilter
   }), { immediate: true });
-  
+
   // 用户操作 API
   const { execute: createUser, loading: createLoading } = useAPI(
-    userAPI.createUser, 
+    userAPI.createUser,
     { showSuccess: true, successMessage: '用户创建成功' }
   );
-  
+
   const { execute: updateUser, loading: updateLoading } = useAPI(
     userAPI.updateUser,
     { showSuccess: true, successMessage: '用户更新成功' }
   );
-  
+
   const { execute: deleteUser } = useAPI(
     userAPI.deleteUser,
     { showSuccess: true, successMessage: '用户删除成功' }
@@ -91,7 +91,7 @@ const UserManagement: React.FC = () => {
   // 从API获取的用户数据
   const users = userListData?.data?.list || [];
   const total = userListData?.data?.total || 0;
-  
+
   // 统计数据
   const stats = {
     total: users.length,
@@ -138,10 +138,10 @@ const UserManagement: React.FC = () => {
       render: (role: string) => (
         <Tag color={
           role === 'admin' ? 'red' :
-          role === 'judge' ? 'blue' : 'green'
+            role === 'judge' ? 'blue' : 'green'
         }>
           {role === 'admin' ? '管理员' :
-           role === 'judge' ? '评委' : '参赛者'}
+            role === 'judge' ? '评委' : '参赛者'}
         </Tag>
       ),
       filters: [
@@ -158,10 +158,10 @@ const UserManagement: React.FC = () => {
       render: (status: string) => (
         <Tag color={
           status === 'active' ? 'green' :
-          status === 'inactive' ? 'orange' : 'red'
+            status === 'inactive' ? 'orange' : 'red'
         }>
           {status === 'active' ? '正常' :
-           status === 'inactive' ? '非活跃' : '已禁用'}
+            status === 'inactive' ? '非活跃' : '已禁用'}
         </Tag>
       ),
       filters: [
@@ -252,7 +252,7 @@ const UserManagement: React.FC = () => {
         ...values,
         registrationDate: values.registrationDate?.format ? values.registrationDate.format('YYYY-MM-DD') : values.registrationDate
       };
-      
+
       if (editingUser) {
         // 编辑用户
         await updateUser(editingUser.id, userData);
@@ -260,7 +260,7 @@ const UserManagement: React.FC = () => {
         // 新增用户
         await createUser(userData);
       }
-      
+
       setDrawerVisible(false);
       setEditingUser(null);
       form.resetFields();
@@ -278,7 +278,7 @@ const UserManagement: React.FC = () => {
   const handleSearch = () => {
     loadUsers();
   };
-  
+
   // 使用原始用户列表，筛选在后端完成
   const filteredUsers = users;
 
@@ -361,8 +361,8 @@ const UserManagement: React.FC = () => {
             </Select>
           </Space>
           <Space>
-            <Button 
-              type="primary" 
+            <Button
+              type="primary"
               icon={<PlusOutlined />}
               onClick={() => {
                 setEditingUser(null);
@@ -381,6 +381,8 @@ const UserManagement: React.FC = () => {
         <Table
           columns={columns}
           dataSource={filteredUsers}
+          tableLayout="fixed"
+          scroll={{ x: 'max-content' }}
           rowKey="id"
           loading={loading}
           pagination={{
@@ -410,9 +412,9 @@ const UserManagement: React.FC = () => {
         extra={
           <Space>
             <Button onClick={() => setDrawerVisible(false)}>取消</Button>
-            <Button 
-              type="primary" 
-              loading={createLoading || updateLoading} 
+            <Button
+              type="primary"
+              loading={createLoading || updateLoading}
               onClick={() => form.submit()}
             >
               保存
@@ -432,7 +434,7 @@ const UserManagement: React.FC = () => {
           >
             <Input placeholder="请输入用户名" />
           </Form.Item>
-          
+
           <Form.Item
             name="realName"
             label="真实姓名"

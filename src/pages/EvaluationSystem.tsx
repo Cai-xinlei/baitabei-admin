@@ -170,7 +170,7 @@ const EvaluationSystem: React.FC = () => {
   ];
 
   // 根据用户角色过滤任务
-  const userTasks = user?.role === 'judge' 
+  const userTasks = user?.role === 'judge'
     ? mockTasks.filter(task => task.judgeId === user.id)
     : mockTasks;
 
@@ -182,7 +182,7 @@ const EvaluationSystem: React.FC = () => {
     pending: tasks.filter(t => t.status === 'pending').length,
     inProgress: tasks.filter(t => t.status === 'in_progress').length,
     completed: tasks.filter(t => t.status === 'completed').length,
-    avgScore: tasks.filter(t => t.totalScore).length > 0 
+    avgScore: tasks.filter(t => t.totalScore).length > 0
       ? (tasks.reduce((sum, t) => sum + (t.totalScore || 0), 0) / tasks.filter(t => t.totalScore).length).toFixed(1)
       : '0'
   };
@@ -262,11 +262,11 @@ const EvaluationSystem: React.FC = () => {
         const used = dayjs().diff(dayjs(record.assignedDate), 'day');
         const progress = record.status === 'completed' ? 100 : Math.min((used / total) * 100, 100);
         const isOverdue = dayjs().isAfter(dayjs(record.deadline)) && record.status !== 'completed';
-        
+
         return (
           <div>
-            <Progress 
-              percent={progress} 
+            <Progress
+              percent={progress}
               status={isOverdue ? 'exception' : record.status === 'completed' ? 'success' : 'active'}
               size="small"
             />
@@ -323,7 +323,7 @@ const EvaluationSystem: React.FC = () => {
 
   const handleSubmitEvaluation = async (values: any) => {
     if (!selectedTask) return;
-    
+
     setLoading(true);
     try {
       // 计算总分
@@ -339,19 +339,19 @@ const EvaluationSystem: React.FC = () => {
       }, 0);
 
       // 更新任务状态
-      setTasks(tasks.map(t => 
-        t.id === selectedTask.id 
+      setTasks(tasks.map(t =>
+        t.id === selectedTask.id
           ? {
-              ...t,
-              status: 'completed',
-              submittedDate: dayjs().format('YYYY-MM-DD'),
-              scores: values,
-              comments: values.comments,
-              totalScore: totalScore
-            }
+            ...t,
+            status: 'completed',
+            submittedDate: dayjs().format('YYYY-MM-DD'),
+            scores: values,
+            comments: values.comments,
+            totalScore: totalScore
+          }
           : t
       ));
-      
+
       message.success('评审提交成功');
       setDrawerVisible(false);
       form.resetFields();
@@ -361,14 +361,14 @@ const EvaluationSystem: React.FC = () => {
   };
 
   const filteredTasks = tasks.filter(task => {
-    const matchesSearch = !searchText || 
+    const matchesSearch = !searchText ||
       task.projectTitle.toLowerCase().includes(searchText.toLowerCase()) ||
       task.author.toLowerCase().includes(searchText.toLowerCase()) ||
       task.judgeName.toLowerCase().includes(searchText.toLowerCase());
-    
+
     const matchesStatus = !statusFilter || task.status === statusFilter;
     const matchesTrack = !trackFilter || task.track === trackFilter;
-    
+
     return matchesSearch && matchesStatus && matchesTrack;
   });
 
@@ -465,6 +465,8 @@ const EvaluationSystem: React.FC = () => {
         <Table
           columns={columns}
           dataSource={filteredTasks}
+          tableLayout="fixed"
+          scroll={{ x: 'max-content' }}
           rowKey="id"
           loading={loading}
           pagination={{
@@ -523,8 +525,8 @@ const EvaluationSystem: React.FC = () => {
             {/* 评审进度 */}
             <Card title="评审进度">
               <Timeline>
-                <Timeline.Item 
-                  color="blue" 
+                <Timeline.Item
+                  color="blue"
                   dot={<CalendarOutlined />}
                 >
                   <div>
@@ -532,7 +534,7 @@ const EvaluationSystem: React.FC = () => {
                     <div className="text-gray-500">{dayjs(selectedTask.assignedDate).format('YYYY-MM-DD')}</div>
                   </div>
                 </Timeline.Item>
-                <Timeline.Item 
+                <Timeline.Item
                   color={selectedTask.status === 'pending' ? 'gray' : 'green'}
                   dot={selectedTask.status === 'pending' ? <ClockCircleOutlined /> : <CheckCircleOutlined />}
                 >
@@ -543,14 +545,14 @@ const EvaluationSystem: React.FC = () => {
                     </div>
                   </div>
                 </Timeline.Item>
-                <Timeline.Item 
+                <Timeline.Item
                   color={selectedTask.status === 'completed' ? 'green' : 'gray'}
                   dot={selectedTask.status === 'completed' ? <TrophyOutlined /> : <ClockCircleOutlined />}
                 >
                   <div>
                     <Text strong>完成评审</Text>
                     <div className="text-gray-500">
-                      {selectedTask.submittedDate 
+                      {selectedTask.submittedDate
                         ? dayjs(selectedTask.submittedDate).format('YYYY-MM-DD')
                         : `截止时间：${dayjs(selectedTask.deadline).format('YYYY-MM-DD')}`
                       }
@@ -567,9 +569,9 @@ const EvaluationSystem: React.FC = () => {
                 <Card title="评审结果">
                   <Row gutter={[16, 16]} className="mb-6">
                     <Col span={12}>
-                      <Statistic 
-                        title="总分" 
-                        value={selectedTask.totalScore} 
+                      <Statistic
+                        title="总分"
+                        value={selectedTask.totalScore}
                         precision={1}
                         valueStyle={{ color: '#1890ff', fontSize: '2rem' }}
                       />
@@ -581,9 +583,9 @@ const EvaluationSystem: React.FC = () => {
                       </div>
                     </Col>
                   </Row>
-                  
+
                   <Divider />
-                  
+
                   <Row gutter={[16, 16]}>
                     {evaluationCriteria.map((criteria) => {
                       const key = {
@@ -594,7 +596,7 @@ const EvaluationSystem: React.FC = () => {
                         '文化内涵': 'culture'
                       }[criteria.name] as keyof NonNullable<typeof selectedTask.scores>;
                       const score = selectedTask.scores?.[key] || 0;
-                      
+
                       return (
                         <Col key={criteria.name} xs={24} sm={12} lg={8}>
                           <Card size="small">
@@ -611,7 +613,7 @@ const EvaluationSystem: React.FC = () => {
                     })}
                   </Row>
                 </Card>
-                
+
                 {selectedTask.comments && (
                   <Card title="评审意见">
                     <Paragraph>{selectedTask.comments}</Paragraph>
@@ -635,7 +637,7 @@ const EvaluationSystem: React.FC = () => {
                         '市场潜力': 'market',
                         '文化内涵': 'culture'
                       }[criteria.name];
-                      
+
                       return (
                         <Card key={criteria.name} size="small" className="mb-4">
                           <Form.Item
@@ -653,14 +655,14 @@ const EvaluationSystem: React.FC = () => {
                         </Card>
                       );
                     })}
-                    
+
                     <Form.Item
                       name="comments"
                       label="评审意见"
                       rules={[{ required: true, message: '请输入评审意见' }]}
                     >
-                      <Input.TextArea 
-                        rows={4} 
+                      <Input.TextArea
+                        rows={4}
                         placeholder="请输入对该项目的详细评价和建议..."
                       />
                     </Form.Item>

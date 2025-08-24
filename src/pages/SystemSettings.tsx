@@ -257,7 +257,7 @@ const SystemSettings: React.FC = () => {
       render: (level: string) => (
         <Tag color={
           level === 'error' ? 'red' :
-          level === 'warning' ? 'orange' : 'blue'
+            level === 'warning' ? 'orange' : 'blue'
         }>
           {level.toUpperCase()}
         </Tag>
@@ -325,8 +325,8 @@ const SystemSettings: React.FC = () => {
     try {
       if (editingRole) {
         // 更新角色
-        setRoles(roles.map(r => 
-          r.id === editingRole.id 
+        setRoles(roles.map(r =>
+          r.id === editingRole.id
             ? { ...r, ...values }
             : r
         ));
@@ -420,7 +420,7 @@ const SystemSettings: React.FC = () => {
                   </Form.Item>
                 </Col>
               </Row>
-              
+
               <Form.Item
                 name="siteDescription"
                 label="网站描述"
@@ -482,7 +482,7 @@ const SystemSettings: React.FC = () => {
               </Row>
 
               <Divider />
-              
+
               <Button type="primary" htmlType="submit" loading={loading} icon={<SaveOutlined />}>
                 保存设置
               </Button>
@@ -504,10 +504,12 @@ const SystemSettings: React.FC = () => {
                 新增角色
               </Button>
             </div>
-            
+
             <Table
               columns={roleColumns}
               dataSource={roles}
+              tableLayout="fixed"
+              scroll={{ x: 'max-content' }}
               rowKey="id"
               pagination={false}
             />
@@ -522,7 +524,7 @@ const SystemSettings: React.FC = () => {
               showIcon
               className="mb-6"
             />
-            
+
             <Row gutter={[16, 16]}>
               <Col xs={24} lg={8}>
                 <Card title="数据备份" className="h-full">
@@ -533,8 +535,8 @@ const SystemSettings: React.FC = () => {
                     <div className="text-sm text-gray-500">
                       上次备份：2025-01-30 02:00:00
                     </div>
-                    <Button 
-                      type="primary" 
+                    <Button
+                      type="primary"
                       icon={<CloudServerOutlined />}
                       onClick={handleBackupData}
                       block
@@ -544,7 +546,7 @@ const SystemSettings: React.FC = () => {
                   </div>
                 </Card>
               </Col>
-              
+
               <Col xs={24} lg={8}>
                 <Card title="系统维护" className="h-full">
                   <Paragraph>
@@ -554,8 +556,8 @@ const SystemSettings: React.FC = () => {
                     <div className="text-sm text-gray-500">
                       状态：正常运行
                     </div>
-                    <Button 
-                      danger 
+                    <Button
+                      danger
                       icon={<ExclamationCircleOutlined />}
                       onClick={handleSystemMaintenance}
                       block
@@ -565,7 +567,7 @@ const SystemSettings: React.FC = () => {
                   </div>
                 </Card>
               </Col>
-              
+
               <Col xs={24} lg={8}>
                 <Card title="系统重启" className="h-full">
                   <Paragraph>
@@ -575,7 +577,7 @@ const SystemSettings: React.FC = () => {
                     <div className="text-sm text-gray-500">
                       上次重启：2025-01-29 03:30:00
                     </div>
-                    <Button 
+                    <Button
                       icon={<ReloadOutlined />}
                       onClick={() => message.info('系统重启功能正在开发中...')}
                       block
@@ -596,10 +598,12 @@ const SystemSettings: React.FC = () => {
                 清空日志
               </Button>
             </div>
-            
+
             <Table
               columns={logColumns}
               dataSource={systemLogs}
+              tableLayout="fixed"
+              scroll={{ x: 'max-content' }}
               rowKey="id"
               pagination={{
                 pageSize: 20,
@@ -643,7 +647,7 @@ const SystemSettings: React.FC = () => {
           >
             <Input placeholder="请输入角色名称" />
           </Form.Item>
-          
+
           <Form.Item
             name="description"
             label="角色描述"
@@ -651,7 +655,7 @@ const SystemSettings: React.FC = () => {
           >
             <TextArea rows={3} placeholder="请输入角色描述" />
           </Form.Item>
-          
+
           <Form.Item
             name="permissions"
             label="权限设置"

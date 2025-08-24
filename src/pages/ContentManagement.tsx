@@ -547,6 +547,8 @@ const ContentManagement: React.FC = () => {
           <Table
             columns={newsColumns}
             dataSource={news}
+            tableLayout="fixed"
+            scroll={{ x: 'max-content' }}
             rowKey="id"
             pagination={{
               pageSize: 10,
@@ -560,6 +562,8 @@ const ContentManagement: React.FC = () => {
           <Table
             columns={bannerColumns}
             dataSource={banners}
+            tableLayout="fixed"
+            scroll={{ x: 'max-content' }}
             rowKey="id"
             pagination={{
               pageSize: 10,
@@ -573,6 +577,8 @@ const ContentManagement: React.FC = () => {
           <Table
             columns={expertColumns}
             dataSource={experts}
+            tableLayout="fixed"
+            scroll={{ x: 'max-content' }}
             rowKey="id"
             pagination={{
               pageSize: 10,
