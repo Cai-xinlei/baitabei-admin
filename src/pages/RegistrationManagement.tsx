@@ -288,8 +288,8 @@ const RegistrationManagement: React.FC = () => {
       title: '确认通过',
       content: '您确定要通过这个报名申请吗？',
       onOk() {
-        setRegistrations(registrations.map(r => 
-          r.id === id 
+        setRegistrations(registrations.map(r =>
+          r.id === id
             ? { ...r, status: 'approved', reviewDate: dayjs().format('YYYY-MM-DD') }
             : r
         ));
@@ -303,8 +303,8 @@ const RegistrationManagement: React.FC = () => {
       title: '确认拒绝',
       content: '您确定要拒绝这个报名申请吗？请输入拒绝理由：',
       onOk() {
-        setRegistrations(registrations.map(r => 
-          r.id === id 
+        setRegistrations(registrations.map(r =>
+          r.id === id
             ? { ...r, status: 'rejected', reviewDate: dayjs().format('YYYY-MM-DD') }
             : r
         ));
@@ -318,14 +318,14 @@ const RegistrationManagement: React.FC = () => {
   };
 
   const filteredRegistrations = registrations.filter(registration => {
-    const matchesSearch = !searchText || 
+    const matchesSearch = !searchText ||
       registration.projectTitle.toLowerCase().includes(searchText.toLowerCase()) ||
       registration.userName.toLowerCase().includes(searchText.toLowerCase()) ||
       registration.teamName?.toLowerCase().includes(searchText.toLowerCase());
-    
+
     const matchesTrack = !trackFilter || registration.track === trackFilter;
     const matchesStatus = !statusFilter || registration.status === statusFilter;
-    
+
     return matchesSearch && matchesTrack && matchesStatus;
   });
 
@@ -439,8 +439,8 @@ const RegistrationManagement: React.FC = () => {
             <Steps
               current={
                 selectedRegistration.status === 'pending' ? 0 :
-                selectedRegistration.status === 'reviewing' ? 1 :
-                selectedRegistration.status === 'approved' ? 2 : 1
+                  selectedRegistration.status === 'reviewing' ? 1 :
+                    selectedRegistration.status === 'approved' ? 2 : 1
               }
               status={
                 selectedRegistration.status === 'rejected' ? 'error' : 'process'
@@ -448,9 +448,9 @@ const RegistrationManagement: React.FC = () => {
             >
               <Step title="已提交" description="申请已提交" />
               <Step title="审核中" description="等待审核" />
-              <Step 
-                title={selectedRegistration.status === 'approved' ? '已通过' : '完成'} 
-                description={selectedRegistration.status === 'approved' ? '审核通过' : '审核完成'} 
+              <Step
+                title={selectedRegistration.status === 'approved' ? '已通过' : '完成'}
+                description={selectedRegistration.status === 'approved' ? '审核通过' : '审核完成'}
               />
             </Steps>
 
@@ -466,13 +466,13 @@ const RegistrationManagement: React.FC = () => {
                 <Descriptions.Item label="状态">
                   <Tag color={
                     selectedRegistration.status === 'pending' ? 'orange' :
-                    selectedRegistration.status === 'reviewing' ? 'blue' :
-                    selectedRegistration.status === 'approved' ? 'green' : 'red'
+                      selectedRegistration.status === 'reviewing' ? 'blue' :
+                        selectedRegistration.status === 'approved' ? 'green' : 'red'
                   }>
                     {
                       selectedRegistration.status === 'pending' ? '待审核' :
-                      selectedRegistration.status === 'reviewing' ? '审核中' :
-                      selectedRegistration.status === 'approved' ? '已通过' : '已拒绝'
+                        selectedRegistration.status === 'reviewing' ? '审核中' :
+                          selectedRegistration.status === 'approved' ? '已通过' : '已拒绝'
                     }
                   </Tag>
                 </Descriptions.Item>
@@ -517,8 +517,8 @@ const RegistrationManagement: React.FC = () => {
                 renderItem={(item) => (
                   <List.Item
                     actions={[
-                      <Button 
-                        type="link" 
+                      <Button
+                        type="link"
                         icon={<DownloadOutlined />}
                         onClick={() => message.info('正在下载...')}
                       >
@@ -563,8 +563,8 @@ const RegistrationManagement: React.FC = () => {
             {selectedRegistration.status === 'pending' && (
               <Card title="审核操作">
                 <Space>
-                  <Button 
-                    type="primary" 
+                  <Button
+                    type="primary"
                     icon={<CheckOutlined />}
                     onClick={() => {
                       handleApprove(selectedRegistration.id);
@@ -573,8 +573,8 @@ const RegistrationManagement: React.FC = () => {
                   >
                     通过审核
                   </Button>
-                  <Button 
-                    danger 
+                  <Button
+                    danger
                     icon={<CloseOutlined />}
                     onClick={() => {
                       handleReject(selectedRegistration.id);

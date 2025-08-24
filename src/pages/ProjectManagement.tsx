@@ -204,7 +204,7 @@ const ProjectManagement: React.FC = () => {
     {
       title: '项目信息',
       key: 'project',
-      width: 300,
+      width: 350,
       render: (_, record) => (
         <div>
           <div className="font-medium text-blue-600 mb-1">{record.title}</div>
@@ -309,7 +309,7 @@ const ProjectManagement: React.FC = () => {
       title: '操作',
       key: 'action',
       render: (_, record) => (
-        <Space size="middle">
+        <Space size='small'>
           <Button
             type="link"
             icon={<EyeOutlined />}
@@ -453,6 +453,8 @@ const ProjectManagement: React.FC = () => {
           columns={columns}
           dataSource={filteredProjects}
           rowKey="id"
+          tableLayout="fixed"
+          scroll={{ x: 'max-content' }}
           loading={loading}
           pagination={{
             total: filteredProjects.length,
