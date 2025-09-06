@@ -22,17 +22,60 @@ export const refreshToken = async () => {
 };
 
 
-// 注册
+// 用户列表
 export const getUserList = async (params) => {
-    const response = await request.get('/api/user/page', params);
+    const response = await request.get('/api/user/page', { params });
     return response;
 };
 
-// 注册
-export const queryProjectInfo = async (params) => {
-    const response = await request.get('/api/project/my', params);
+// 用户列表 - 删除
+export const deleteUser = async (userId) => {
+    const response = await request.delete(`/api/user/delete/${userId}`);
     return response;
 };
+
+// 用户列表 -更新
+export const updateUser = async (params) => {
+    const response = await request.post('/api/user/update', params);
+    return response;
+};
+
+
+// 项目列表
+export const getProjectList = async (params) => {
+    const response = await request.get('/api/project/page', { params });
+    return response;
+};
+
+
+// 内容管理-新闻资讯列表
+export const queryZixunList = async (params) => {
+    const response = await request.get('/api/news', { params });
+    return response;
+};
+export const queryZixunDelete = async (params) => {
+    const response = await request.get(`/api/news/${params}`,);
+    return response;
+};
+// **接口地址**: `GET /news/{id}`
+
+// ### 6.3 创建新闻
+
+// **接口地址**: `POST /news`
+
+// ### 6.4 更新新闻
+
+// **接口地址**: `PUT /news/{id}`
+
+// ### 6.5 发布新闻
+
+// **接口地址**: `POST /news/{id}/publish`
+
+// ### 6.6 删除新闻
+
+// **接口地址**: `DELETE /news/{id}`
+
+
 
 // 登出
 export const logout = async () => {

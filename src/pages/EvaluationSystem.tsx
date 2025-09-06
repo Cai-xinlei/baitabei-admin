@@ -290,16 +290,16 @@ const EvaluationSystem: React.FC = () => {
           >
             查看
           </Button>
-          {(record.status !== 'completed' && user?.role === 'judge') && (
-            <Button
-              type="link"
-              icon={<EditOutlined />}
-              onClick={() => handleEvaluate(record)}
-              size="small"
-            >
-              评分
-            </Button>
-          )}
+          {/* {(record.status !== 'completed' && user?.role === 'judge') && ( */}
+          <Button
+            type="link"
+            icon={<EditOutlined />}
+            onClick={() => handleEvaluate(record)}
+            size="small"
+          >
+            评分
+          </Button>
+          {/* )} */}
         </Space>
       ),
     },

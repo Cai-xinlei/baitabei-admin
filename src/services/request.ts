@@ -105,9 +105,9 @@ export const request = {
             throw error;
         }
     },
-    delete: async (url, config = {}) => {
+    delete: async (url, params = {}, config = {}) => {
         try {
-            const response = await service.delete(url, config);
+            const response = await service.delete(url, { ...config, params });
             return response;
         } catch (error) {
             throw error;

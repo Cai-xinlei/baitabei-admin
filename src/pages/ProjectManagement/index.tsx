@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Table,
   Button,
@@ -37,6 +37,8 @@ import {
   TrophyOutlined
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
+import { getProjectList } from '@/services/authService'
+import { TRACKS } from '@/constants/index'
 import dayjs from 'dayjs';
 
 const { Title, Text, Paragraph } = Typography;
@@ -71,8 +73,8 @@ const ProjectManagement: React.FC = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [searchText, setSearchText] = useState('');
-  const [trackFilter, setTrackFilter] = useState<string>('');
-  const [statusFilter, setStatusFilter] = useState<string>('');
+  const [trackFilter, setTrackFilter] = useState(null);
+  const [statusFilter, setStatusFilter] = useState<string>(null);
 
   // 模拟项目数据
   const mockProjects: Project[] = [
@@ -185,6 +187,20 @@ const ProjectManagement: React.FC = () => {
     }
   ];
 
+  useEffect(() => {
+    const params = {
+      page: 1,
+      size: 10,
+      keyword: searchText,
+      status: statusFilter,
+      trackId: trackFilter
+    }
+    getProjectList(params).then(res => {
+      console.log(res, '获取项目列表');
+
+    })
+  }, [searchText, searchText, trackFilter])
+
   const [projects, setProjects] = useState<Project[]>(mockProjects);
 
   // 统计数据
@@ -195,10 +211,6 @@ const ProjectManagement: React.FC = () => {
     finalist: projects.filter(p => p.status === 'finalist').length,
     avgScore: (projects.reduce((sum, p) => sum + (p.evaluationScore || 0), 0) / projects.filter(p => p.evaluationScore).length).toFixed(1)
   };
-
-  // 赛道列表
-  const tracks = ['创意设计', '技术创新', '文化传播', '商业模式', '社会公益', '综合创新'];
-
   // 表格列配置
   const columns: ColumnsType<Project> = [
     {
@@ -244,7 +256,7 @@ const ProjectManagement: React.FC = () => {
       render: (track: string) => (
         <Tag color="blue">{track}</Tag>
       ),
-      filters: tracks.map(track => ({ text: track, value: track })),
+      filters: TRACKS.map(track => ({ text: track.label, value: track.value })),
       onFilter: (value, record) => record.track === value,
     },
     {
@@ -421,18 +433,15 @@ const ProjectManagement: React.FC = () => {
               placeholder="选择赛道"
               value={trackFilter}
               onChange={setTrackFilter}
-              style={{ width: 150 }}
-              allowClear
-            >
-              {tracks.map(track => (
-                <Option key={track} value={track}>{track}</Option>
-              ))}
-            </Select>
+              style={{ width: 200 }}
+              options={TRACKS}
+            />
+
             <Select
               placeholder="选择状态"
               value={statusFilter}
               onChange={setStatusFilter}
-              style={{ width: 120 }}
+              style={{ width: 200 }}
               allowClear
             >
               <Option value="submitted">已提交</Option>
@@ -442,11 +451,11 @@ const ProjectManagement: React.FC = () => {
               <Option value="rejected">已拒绝</Option>
             </Select>
           </Space>
-          <Space>
+          {/* <Space>
             <Button icon={<ExportOutlined />} onClick={handleExport}>
               导出数据
             </Button>
-          </Space>
+          </Space> */}
         </div>
 
         <Table

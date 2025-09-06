@@ -46,7 +46,7 @@ const Login: React.FC = () => {
             <TrophyOutlined className="text-2xl text-white" />
           </div>
           <Title level={2} className="text-gray-800 mb-2">
-            2025年白塔杯
+            2025第四届“白塔杯”
           </Title>
           <Text className="text-gray-600">
             管理后台系统

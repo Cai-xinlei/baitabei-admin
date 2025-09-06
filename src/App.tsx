@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import UserManagement from './pages/UserManagement';
 import RegistrationManagement from './pages/RegistrationManagement';
-import ProjectManagement from './pages/ProjectManagement';
+import ProjectManagement from './pages/ProjectManagement/index';
 import EvaluationSystem from './pages/EvaluationSystem';
 import ContentManagement from './pages/ContentManagement';
 import DataStatistics from './pages/DataStatistics';

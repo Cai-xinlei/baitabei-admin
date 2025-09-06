@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Tabs,
   Table,
@@ -38,7 +38,7 @@ import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import defaultAvatar from '@/assets/images/default-avatar.jpg';
 import newsPlaceholder from '@/assets/images/news-placeholder.jpg';
-
+import { queryZixunList } from "@/services/authService"
 const { Title, Text } = Typography;
 const { Option } = Select;
 const { confirm } = Modal;
@@ -195,6 +195,10 @@ const ContentManagement: React.FC = () => {
       active: true
     }
   ];
+
+  useEffect(() => {
+    queryZixunList
+  }, [])
 
   const [news, setNews] = useState<NewsArticle[]>(mockNews);
   const [banners, setBanners] = useState<Banner[]>(mockBanners);
@@ -716,12 +720,12 @@ const ContentManagement: React.FC = () => {
           <TabPane tab="新闻资讯" key="news">
             {renderTabContent()}
           </TabPane>
-          <TabPane tab="轮播图片" key="banners">
+          {/* <TabPane tab="轮播图片" key="banners">
             {renderTabContent()}
           </TabPane>
           <TabPane tab="专家信息" key="experts">
             {renderTabContent()}
-          </TabPane>
+          </TabPane> */}
         </Tabs>
       </Card>
 

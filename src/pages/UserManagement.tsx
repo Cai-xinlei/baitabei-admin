@@ -17,25 +17,20 @@ import {
   Modal,
   message,
   DatePicker,
-  Switch
 } from 'antd';
 import {
-  SearchOutlined,
   PlusOutlined,
   EditOutlined,
   DeleteOutlined,
-  ExportOutlined,
   UserOutlined,
   MailOutlined,
   PhoneOutlined,
-  CalendarOutlined
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useAPI } from '../hooks/useAPI';
 import { userAPI } from '../services/api';
-import { USER_ROLES, USER_ROLE_NAMES, USER_STATUS } from '../utils/constants';
-import { getUserList } from '@/services/authService'
+import { getUserList, deleteUser } from '@/services/authService'
 const { Title, Text } = Typography;
 const { Option } = Select;
 const { confirm } = Modal;
@@ -58,19 +53,14 @@ const UserManagement: React.FC = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [searchText, setSearchText] = useState('');
-  const [roleFilter, setRoleFilter] = useState<string>('');
-  const [statusFilter, setStatusFilter] = useState<string>('');
+  const [roleFilter, setRoleFilter] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string | null>(null);
+  const [total, setTotal] = useState<number>(null)
+  const [userListData, setUserListData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState<number>(1)
   const [form] = Form.useForm();
 
-  // 获取用户列表
-  const {
-    data: userListData,
-    loading,
-    execute: loadUsers
-  } = useAPI(() => userAPI.getUserList({
-    search: searchText,
-    role: roleFilter
-  }), { immediate: true });
 
   // 用户操作 API
   const { execute: createUser, loading: createLoading } = useAPI(
@@ -83,37 +73,40 @@ const UserManagement: React.FC = () => {
     { showSuccess: true, successMessage: '用户更新成功' }
   );
 
-  const { execute: deleteUser } = useAPI(
-    userAPI.deleteUser,
-    { showSuccess: true, successMessage: '用户删除成功' }
-  );
-
-  // 从API获取的用户数据
-  const users = userListData?.data?.list || [];
-  const total = userListData?.data?.total || 0;
-
   // 统计数据
   const stats = {
-    total: users.length,
-    active: users.filter(u => u.status === 'active').length,
-    participants: users.filter(u => u.role === 'participant').length,
-    judges: users.filter(u => u.role === 'judge').length
+    // total: users.length,
+    // active: users.filter(u => u.status === 'active').length,
+    // participants: users.filter(u => u.role === 'participant').length,
+    // judges: users.filter(u => u.role === 'judge').length
   };
 
-
-  useEffect(() => {
+  const handleGetProjectList = () => {
     const params = {
-      page: 1,
+      page,
       size: 10,
       keyword: searchText,
       status: statusFilter,
       role: roleFilter
     }
-    getUserList({ params }).then(res => {
-      console.log(1111, res);
+    setLoading(true);
+    getUserList(params).then(res => {
+      if (res?.code === 200) {
+        const { total, records } = res?.data
+        setTotal(total);
+        setUserListData(records);
+        setLoading(false);
+      }
+    }).finally(() => {
+      setLoading(false);
 
     })
-  }, [statusFilter, roleFilter, searchText])
+  }
+
+
+  useEffect(() => {
+    handleGetProjectList();
+  }, [statusFilter, roleFilter, searchText, page])
 
   // 表格列配置
   const columns: ColumnsType<User> = [
@@ -125,7 +118,7 @@ const UserManagement: React.FC = () => {
           <Avatar src={record.avatar} icon={<UserOutlined />} />
           <div>
             <div className="font-medium">{record.realName}</div>
-            <div className="text-gray-500 text-sm">{record.username}</div>
+            {/* <div className="text-gray-500 text-sm">{record.username}</div> */}
           </div>
         </Space>
       ),
@@ -166,26 +159,26 @@ const UserManagement: React.FC = () => {
       ],
       onFilter: (value, record) => record.role === value,
     },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status: string) => (
-        <Tag color={
-          status === 'active' ? 'green' :
-            status === 'inactive' ? 'orange' : 'red'
-        }>
-          {status === 'active' ? '正常' :
-            status === 'inactive' ? '非活跃' : '已禁用'}
-        </Tag>
-      ),
-      filters: [
-        { text: '正常', value: 'active' },
-        { text: '非活跃', value: 'inactive' },
-        { text: '已禁用', value: 'banned' }
-      ],
-      onFilter: (value, record) => record.status === value,
-    },
+    // {
+    //   title: '状态',
+    //   dataIndex: 'status',
+    //   key: 'status',
+    //   render: (status: string) => (
+    //     <Tag color={
+    //       status === 'active' ? 'green' :
+    //         status === 'inactive' ? 'orange' : 'red'
+    //     }>
+    //       {status === 'active' ? '正常' :
+    //         status === 'inactive' ? '非活跃' : '已禁用'}
+    //     </Tag>
+    //   ),
+    //   filters: [
+    //     { text: '正常', value: 'active' },
+    //     { text: '非活跃', value: 'inactive' },
+    //     { text: '已禁用', value: 'banned' }
+    //   ],
+    //   onFilter: (value, record) => record.status === value,
+    // },
     {
       title: '注册时间',
       dataIndex: 'registrationDate',
@@ -193,23 +186,23 @@ const UserManagement: React.FC = () => {
       render: (date: string) => dayjs(date).format('YYYY-MM-DD'),
       sorter: (a, b) => dayjs(a.registrationDate).unix() - dayjs(b.registrationDate).unix(),
     },
-    {
-      title: '最后登录',
-      dataIndex: 'lastLogin',
-      key: 'lastLogin',
-      render: (date?: string) => date ? dayjs(date).format('YYYY-MM-DD') : '-',
-      sorter: (a, b) => {
-        if (!a.lastLogin) return 1;
-        if (!b.lastLogin) return -1;
-        return dayjs(a.lastLogin).unix() - dayjs(b.lastLogin).unix();
-      },
-    },
-    {
-      title: '参赛次数',
-      dataIndex: 'participationCount',
-      key: 'participationCount',
-      sorter: (a, b) => a.participationCount - b.participationCount,
-    },
+    // {
+    //   title: '最后登录',
+    //   dataIndex: 'lastLogin',
+    //   key: 'lastLogin',
+    //   render: (date?: string) => date ? dayjs(date).format('YYYY-MM-DD') : '-',
+    //   sorter: (a, b) => {
+    //     if (!a.lastLogin) return 1;
+    //     if (!b.lastLogin) return -1;
+    //     return dayjs(a.lastLogin).unix() - dayjs(b.lastLogin).unix();
+    //   },
+    // },
+    // {
+    //   title: '参赛次数',
+    //   dataIndex: 'participationCount',
+    //   key: 'participationCount',
+    //   sorter: (a, b) => a.participationCount - b.participationCount,
+    // },
     {
       title: '操作',
       key: 'action',
@@ -252,8 +245,14 @@ const UserManagement: React.FC = () => {
       content: '您确定要删除这个用户吗？此操作不可恢复。',
       async onOk() {
         try {
-          await deleteUser(id);
-          loadUsers(); // 重新加载用户列表
+          deleteUser(id).then(res => {
+            console.log("删除用户", res);
+            if (res.success) {
+              handleGetProjectList();
+              message.success('删除用户成功');
+            }
+
+          })
         } catch (error) {
           console.error('删除用户失败:', error);
         }
@@ -279,7 +278,7 @@ const UserManagement: React.FC = () => {
       setDrawerVisible(false);
       setEditingUser(null);
       form.resetFields();
-      loadUsers(); // 重新加载用户列表
+      // loadUsers(); // 重新加载用户列表
     } catch (error) {
       console.error('保存用户失败:', error);
     }
@@ -291,12 +290,8 @@ const UserManagement: React.FC = () => {
 
   // 当搜索条件变化时重新加载数据
   const handleSearch = () => {
-    loadUsers();
+    // loadUsers();
   };
-
-  // 使用原始用户列表，筛选在后端完成
-  const filteredUsers = users;
-
   return (
     <div className="space-y-6">
       {/* 页面标题 */}
@@ -387,15 +382,15 @@ const UserManagement: React.FC = () => {
             >
               新增用户
             </Button>
-            <Button icon={<ExportOutlined />} onClick={handleExport}>
+            {/* <Button icon={<ExportOutlined />} onClick={handleExport}>
               导出数据
-            </Button>
+            </Button> */}
           </Space>
         </div>
 
         <Table
           columns={columns}
-          dataSource={filteredUsers}
+          dataSource={userListData}
           tableLayout="fixed"
           scroll={{ x: 'max-content' }}
           rowKey="id"
@@ -406,9 +401,8 @@ const UserManagement: React.FC = () => {
             showSizeChanger: true,
             showQuickJumper: true,
             showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条，共 ${total} 条`,
-            onChange: (page, pageSize) => {
-              console.log('🔌 分页变化:', { page, pageSize });
-              // TODO: 实现分页API调用
+            onChange: (page) => {
+              setPage(page)
             }
           }}
         />
