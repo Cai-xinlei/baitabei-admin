@@ -117,9 +117,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider 
-        trigger={null} 
-        collapsible 
+      <Sider
+        trigger={null}
+        collapsible
         collapsed={collapsed}
         width={256}
         style={{
@@ -149,9 +149,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
         />
       </Sider>
       <Layout style={{ marginLeft: collapsed ? 80 : 256 }}>
-        <Header 
-          style={{ 
-            padding: '0 24px', 
+        <Header
+          style={{
+            padding: '0 24px',
             background: colorBgContainer,
             display: 'flex',
             alignItems: 'center',
@@ -169,24 +169,24 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
               height: 64,
             }}
           />
-          
+
           <Space size="middle">
             <Badge count={3} size="small">
-              <Button 
-                type="text" 
+              <Button
+                type="text"
                 icon={<BellOutlined style={{ fontSize: '16px' }} />}
                 style={{ border: 'none' }}
               />
             </Badge>
-            
-            <Dropdown 
+
+            <Dropdown
               menu={{ items: userMenuItems }}
               placement="bottomRight"
               arrow
             >
               <Space className="cursor-pointer hover:bg-gray-50 px-2 py-1 rounded">
-                <Avatar 
-                  size="small" 
+                <Avatar
+                  size="small"
                   icon={<UserOutlined />}
                   src={user?.avatar}
                 />
@@ -203,7 +203,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
             </Dropdown>
           </Space>
         </Header>
-        
+
         <Content
           style={{
             margin: '24px',

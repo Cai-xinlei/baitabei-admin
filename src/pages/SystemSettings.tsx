@@ -284,6 +284,7 @@ const SystemSettings: React.FC = () => {
     {
       title: '详情',
       dataIndex: 'details',
+      width: 200,
       key: 'details',
     },
   ];
@@ -602,8 +603,6 @@ const SystemSettings: React.FC = () => {
             <Table
               columns={logColumns}
               dataSource={systemLogs}
-              tableLayout="fixed"
-              scroll={{ x: 'max-content' }}
               rowKey="id"
               pagination={{
                 pageSize: 20,

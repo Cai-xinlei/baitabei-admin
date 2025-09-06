@@ -10,6 +10,7 @@
 import axios from 'axios';
 import { message } from 'antd';
 import defaultAvatar from '@/assets/images/default-avatar.jpg';
+import request from './request';
 
 // API基础配置
 const API_CONFIG = {
@@ -98,13 +99,14 @@ export const userAPI = {
   },
 
   // 获取用户列表
-  getUserList: async (params: { page?: number; size?: number; search?: string; role?: string }) => {
+  getUserList: async (params) => {
     // TODO: 连接Java后端 GET /api/users
     // return apiClient.get('/api/users', { params });
 
     console.log('🔌 API调用 - 获取用户列表:', params);
-    await new Promise(resolve => setTimeout(resolve, 500));
-
+    const response = await request.get('/api/user/page', params);
+    console.log(response, 'responseresponse');
+    return response
     const mockUsers = [
       {
         id: '1',

@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import { message } from 'antd';
 import defaultAvatar from '@/assets/images/default-avatar.jpg';
-
+import request from '@/services/request'
 interface User {
   id: string;
   username: string;
@@ -14,9 +14,9 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (username: string, password: string) => Promise<boolean>;
+  login: ({ username, password }) => Promise<boolean>;
   logout: () => void;
-  hasPermission: (permission: string) => boolean;
+  // hasPermission: (permission: string) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -70,32 +70,78 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const login = async (username: string, password: string): Promise<boolean> => {
-    try {
-      // 模拟登录请求
-      const user = mockUsers.find(u => u.username === username && u.password === password);
+  const login = async (loginData) => {
+    const response = await request.post('/api/auth/login', loginData);
+    console.log(response, 'responseresponse');
 
-      if (user) {
-        const { password: _, ...userWithoutPassword } = user;
-        setUser(userWithoutPassword);
-        setIsAuthenticated(true);
-        localStorage.setItem('baitabei_admin_user', JSON.stringify(userWithoutPassword));
-        message.success('登录成功');
-        return true;
-      } else {
-        message.error('用户名或密码错误');
-        return false;
-      }
-    } catch (error) {
-      message.error('登录失败，请稍后重试');
+    const { message, success, data } = response;
+    if (!success) {
+      message.config({
+        top: 250,
+        duration: 2,
+        maxCount: 3,
+        rtl: true,
+        prefixCls: 'my-message',
+      });
       return false;
+
     }
+    const { accessToken, refreshToken } = data;
+    // 存储token到localStorage
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+    setUser(data)
+    setIsAuthenticated(true);
+    localStorage.setItem('baitabei_admin_user', JSON.stringify(data));
+    return true;
+
+    // try {
+    //   // 模拟登录请求
+    //   const user = mockUsers.find(u => u.username === username && u.password === password);
+
+    //   if (user) {
+    //     const { password: _, ...userWithoutPassword } = user;
+    //     setUser(userWithoutPassword);
+    //     setIsAuthenticated(true);
+    //     localStorage.setItem('baitabei_admin_user', JSON.stringify(userWithoutPassword));
+    //     message.success('登录成功');
+    //     return true;
+    //   } else {
+    //     message.error('用户名或密码错误');
+    //     return false;
+    //   }
+    // } catch (error) {
+    //   message.error('登录失败，请稍后重试');
+    //   return false;
+    // }
+    // try {
+    //   // 模拟登录请求
+    //   const user = mockUsers.find(u => u.username === username && u.password === password);
+
+    //   if (user) {
+    //     const { password: _, ...userWithoutPassword } = user;
+    //     setUser(userWithoutPassword);
+    //     setIsAuthenticated(true);
+    //     localStorage.setItem('baitabei_admin_user', JSON.stringify(userWithoutPassword));
+    //     message.success('登录成功');
+    //     return true;
+    //   } else {
+    //     message.error('用户名或密码错误');
+    //     return false;
+    //   }
+    // } catch (error) {
+    //   message.error('登录失败，请稍后重试');
+    //   return false;
+    // }
   };
 
   const logout = () => {
     setUser(null);
     setIsAuthenticated(false);
-    localStorage.removeItem('baitabei_admin_user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('tokenType');
+    localStorage.removeItem('user');
     message.success('退出成功');
   };
 
@@ -121,7 +167,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isAuthenticated,
       login,
       logout,
-      hasPermission
+      // hasPermission
     }}>
       {children}
     </AuthContext.Provider>

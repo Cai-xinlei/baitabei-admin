@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Form, Input, Button, Checkbox, Alert, Typography, Space } from 'antd';
+import { Card, Form, Input, Button, Checkbox, Alert, Typography, Space, message } from 'antd';
 import { UserOutlined, LockOutlined, TrophyOutlined } from '@ant-design/icons';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
@@ -21,8 +21,9 @@ const Login: React.FC = () => {
   const onFinish = async (values: LoginForm) => {
     setLoading(true);
     try {
-      const success = await login(values.username, values.password);
+      const success = await login({ username: values.username, password: values.password });
       if (success) {
+        message.success('登录成功')
         navigate('/dashboard');
       }
     } finally {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Table,
   Button,
@@ -35,7 +35,7 @@ import dayjs from 'dayjs';
 import { useAPI } from '../hooks/useAPI';
 import { userAPI } from '../services/api';
 import { USER_ROLES, USER_ROLE_NAMES, USER_STATUS } from '../utils/constants';
-
+import { getUserList } from '@/services/authService'
 const { Title, Text } = Typography;
 const { Option } = Select;
 const { confirm } = Modal;
@@ -99,6 +99,21 @@ const UserManagement: React.FC = () => {
     participants: users.filter(u => u.role === 'participant').length,
     judges: users.filter(u => u.role === 'judge').length
   };
+
+
+  useEffect(() => {
+    const params = {
+      page: 1,
+      size: 10,
+      keyword: searchText,
+      status: statusFilter,
+      role: roleFilter
+    }
+    getUserList({ params }).then(res => {
+      console.log(1111, res);
+
+    })
+  }, [statusFilter, roleFilter, searchText])
 
   // 表格列配置
   const columns: ColumnsType<User> = [
