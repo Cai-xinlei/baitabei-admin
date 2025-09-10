@@ -106,19 +106,6 @@ export const getUserInfo = async () => {
     return data.userInfo;
 };
 
-// 检查token是否过期，如果过期则刷新
-export const checkAndRefreshToken = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        throw new Error('未登录');
-    }
-
-    // 这里可以添加检查token是否过期的逻辑
-    // 例如解析JWT token获取过期时间
-    // 为了简化示例，我们直接尝试刷新token
-    await refreshToken();
-};
-
 
 // 项目提交
 export const projectsSubmit = async (submitData) => {

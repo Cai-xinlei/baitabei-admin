@@ -27,7 +27,6 @@ import {
 import { Line, Column } from '@ant-design/charts';
 import useAuth from '../hooks/useAuth';
 import { useAPI } from '../hooks/useAPI';
-import { userAPI } from '../services/api';
 import defaultAvatar from '@/assets/images/default-avatar.jpg';
 
 const { Title, Text } = Typography;

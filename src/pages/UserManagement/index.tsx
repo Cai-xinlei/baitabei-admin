@@ -29,7 +29,6 @@ import {
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useAPI } from '@/hooks/useAPI';
-import { userAPI } from '@/services/api';
 import { getUserList, deleteUser, updateUser, createUser } from '@/services/authService';
 import { roleList } from '@/constants/index'
 const { Title, Text } = Typography;
