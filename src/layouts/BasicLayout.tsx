@@ -46,46 +46,46 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
 
   // 菜单项配置
   const menuItems = [
-    {
-      key: '/dashboard',
-      icon: <DashboardOutlined />,
-      label: '仪表板',
-    },
-    {
-      key: '/users',
-      icon: <UserOutlined />,
-      label: '用户管理',
-    },
-    {
-      key: '/registrations',
-      icon: <TeamOutlined />,
-      label: '报名管理',
-    },
+    // {
+    //   key: '/dashboard',
+    //   icon: <DashboardOutlined />,
+    //   label: '仪表板',
+    // },
+    // {
+    //   key: '/users',
+    //   icon: <UserOutlined />,
+    //   label: '用户管理',
+    // },
+    // {
+    //   key: '/registrations',
+    //   icon: <TeamOutlined />,
+    //   label: '报名管理',
+    // },
     {
       key: '/projects',
       icon: <ProjectOutlined />,
-      label: '项目管理',
+      label: '参数作品管理',
     },
-    {
-      key: '/evaluation',
-      icon: <CheckCircleOutlined />,
-      label: '评审系统',
-    },
-    {
-      key: '/content',
-      icon: <FileTextOutlined />,
-      label: '内容管理',
-    },
-    {
-      key: '/statistics',
-      icon: <BarChartOutlined />,
-      label: '数据统计',
-    },
-    {
-      key: '/settings',
-      icon: <SettingOutlined />,
-      label: '系统设置',
-    },
+    // {
+    //   key: '/evaluation',
+    //   icon: <CheckCircleOutlined />,
+    //   label: '评审系统',
+    // },
+    // {
+    //   key: '/content',
+    //   icon: <FileTextOutlined />,
+    //   label: '内容管理',
+    // },
+    // {
+    //   key: '/statistics',
+    //   icon: <BarChartOutlined />,
+    //   label: '数据统计',
+    // },
+    // {
+    //   key: '/settings',
+    //   icon: <SettingOutlined />,
+    //   label: '系统设置',
+    // },
   ];
 
   // 用户菜单

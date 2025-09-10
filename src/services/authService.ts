@@ -1,60 +1,56 @@
 import request from './request';
 import axios from 'axios';
-// 刷新token
-export const refreshToken = async () => {
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (!refreshToken) {
-        throw new Error('没有刷新令牌');
-    }
-
-    const response = await request.post('/api/auth/refresh', {}, {
-        headers: {
-            Authorization: `Bearer ${refreshToken}`
-        }
-    });
-
-    const { data } = response;
-    const { token, refreshToken: newRefreshToken, expiresIn } = data;
-    localStorage.setItem('token', token);
-    localStorage.setItem('refreshToken', newRefreshToken);
-
-    return { token, refreshToken: newRefreshToken, expiresIn };
-};
 
 
 // 用户列表
 export const getUserList = async (params) => {
-    const response = await request.get('/api/user/page', { params });
+    const response: any = await request.get('/api/user/page', { params });
     return response;
 };
 
 // 用户列表 - 删除
 export const deleteUser = async (userId) => {
-    const response = await request.delete(`/api/user/delete/${userId}`);
+    const response: any = await request.delete(`/api/user/delete/${userId}`);
     return response;
 };
 
 // 用户列表 -更新
 export const updateUser = async (params) => {
-    const response = await request.post('/api/user/update', params);
+    const response: any = await request.put('/api/user/update', params);
+    return response;
+};
+// 用户列表 -更新
+export const createUser = async (params) => {
+    const response: any = await request.put('/api/user/create', params);
     return response;
 };
 
 
 // 项目列表
 export const getProjectList = async (params) => {
-    const response = await request.get('/api/project/page', { params });
+    const response: any = await request.get('/api/project/page', { params });
+    return response;
+};
+
+// 项目列表 - 删除
+export const deleteProject = async (projectId) => {
+    const response: any = await request.delete(`/api/project/delete/${projectId}`);
+    return response;
+};
+// 项目列表 - 项目详情
+export const detailProject = async (projectId) => {
+    const response: any = await request.get(`/api/project/detail/${projectId}`);
     return response;
 };
 
 
 // 内容管理-新闻资讯列表
 export const queryZixunList = async (params) => {
-    const response = await request.get('/api/news', { params });
+    const response: any = await request.get('/api/news', { params });
     return response;
 };
 export const queryZixunDelete = async (params) => {
-    const response = await request.get(`/api/news/${params}`,);
+    const response: any = await request.get(`/api/news/${params}`,);
     return response;
 };
 // **接口地址**: `GET /news/{id}`

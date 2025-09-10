@@ -28,9 +28,10 @@ import {
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
-import { useAPI } from '../hooks/useAPI';
-import { userAPI } from '../services/api';
-import { getUserList, deleteUser } from '@/services/authService'
+import { useAPI } from '@/hooks/useAPI';
+import { userAPI } from '@/services/api';
+import { getUserList, deleteUser, updateUser, createUser } from '@/services/authService';
+import { roleList } from '@/constants/index'
 const { Title, Text } = Typography;
 const { Option } = Select;
 const { confirm } = Modal;
@@ -60,22 +61,12 @@ const UserManagement: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [page, setPage] = useState<number>(1)
   const [form] = Form.useForm();
-
-
-  // 用户操作 API
-  const { execute: createUser, loading: createLoading } = useAPI(
-    userAPI.createUser,
-    { showSuccess: true, successMessage: '用户创建成功' }
-  );
-
-  const { execute: updateUser, loading: updateLoading } = useAPI(
-    userAPI.updateUser,
-    { showSuccess: true, successMessage: '用户更新成功' }
-  );
-
   // 统计数据
   const stats = {
-    // total: users.length,
+    total: total,
+    active: total,
+    participants: total,
+    judges: total,
     // active: users.filter(u => u.status === 'active').length,
     // participants: users.filter(u => u.role === 'participant').length,
     // judges: users.filter(u => u.role === 'judge').length
@@ -269,10 +260,14 @@ const UserManagement: React.FC = () => {
 
       if (editingUser) {
         // 编辑用户
-        await updateUser(editingUser.id, userData);
+        updateUser({ ...userData }).then(res => {
+          console.log(res, '编辑用户');
+        })
       } else {
         // 新增用户
-        await createUser(userData);
+        createUser({ ...userData }).then(res => {
+          console.log(res, '新增用户');
+        })
       }
 
       setDrawerVisible(false);
@@ -316,7 +311,7 @@ const UserManagement: React.FC = () => {
         </Col>
         <Col xs={24} sm={6}>
           <Card>
-            <Statistic title="参赛者" value={stats.participants} valueStyle={{ color: '#1890ff' }} />
+            <Statistic title="参赛者" value={stats?.participants} valueStyle={{ color: '#1890ff' }} />
           </Card>
         </Col>
         <Col xs={24} sm={6}>
@@ -423,7 +418,7 @@ const UserManagement: React.FC = () => {
             <Button onClick={() => setDrawerVisible(false)}>取消</Button>
             <Button
               type="primary"
-              loading={createLoading || updateLoading}
+              // loading={createLoading || updateLoading}
               onClick={() => form.submit()}
             >
               保存
@@ -443,14 +438,13 @@ const UserManagement: React.FC = () => {
           >
             <Input placeholder="请输入用户名" />
           </Form.Item>
-
-          <Form.Item
+          {/* <Form.Item
             name="realName"
             label="真实姓名"
             rules={[{ required: true, message: '请输入真实姓名' }]}
           >
             <Input placeholder="请输入真实姓名" />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             name="email"
@@ -472,17 +466,13 @@ const UserManagement: React.FC = () => {
           </Form.Item>
 
           <Form.Item
-            name="role"
+            name="roleId"
             label="用户角色"
             rules={[{ required: true, message: '请选择用户角色' }]}
           >
-            <Select placeholder="请选择用户角色">
-              <Option value="participant">参赛者</Option>
-              <Option value="judge">评委</Option>
-              <Option value="admin">管理员</Option>
-            </Select>
+            <Select placeholder="请选择用户角色" options={roleList} />
           </Form.Item>
-
+          {/* 
           <Form.Item
             name="status"
             label="用户状态"
@@ -493,15 +483,14 @@ const UserManagement: React.FC = () => {
               <Option value="inactive">非活跃</Option>
               <Option value="banned">已禁用</Option>
             </Select>
-          </Form.Item>
-
-          <Form.Item
-            name="registrationDate"
-            label="注册时间"
+          </Form.Item> */}
+          {/* <Form.Item
+            name="updatedTime"
+            label="时间"
             rules={[{ required: true, message: '请选择注册时间' }]}
           >
             <DatePicker style={{ width: '100%' }} />
-          </Form.Item>
+          </Form.Item> */}
         </Form>
       </Drawer>
     </div>

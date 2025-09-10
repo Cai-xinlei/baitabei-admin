@@ -4,7 +4,7 @@ import { AuthProvider } from './hooks/useAuth';
 import BasicLayout from './layouts/BasicLayout';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import UserManagement from './pages/UserManagement';
+import UserManagement from './pages/UserManagement/index';
 import RegistrationManagement from './pages/RegistrationManagement';
 import ProjectManagement from './pages/ProjectManagement/index';
 import EvaluationSystem from './pages/EvaluationSystem';
@@ -15,7 +15,6 @@ import useAuth from './hooks/useAuth';
 
 function AppContent() {
   const { isAuthenticated } = useAuth();
-
   if (!isAuthenticated) {
     return (
       <Routes>
@@ -24,11 +23,13 @@ function AppContent() {
       </Routes>
     );
   }
+  console.log(isAuthenticated, 'isAuthenticated');
 
   return (
     <BasicLayout>
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
+        <Route path="/" element={<Navigate to="/projects" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/users" element={<UserManagement />} />
         <Route path="/registrations" element={<RegistrationManagement />} />
@@ -37,7 +38,8 @@ function AppContent() {
         <Route path="/content" element={<ContentManagement />} />
         <Route path="/statistics" element={<DataStatistics />} />
         <Route path="/settings" element={<SystemSettings />} />
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        {/* <Route path="*" element={<Navigate to="/dashboard" replace />} /> */}
+        <Route path="*" element={<Navigate to="/projects" replace />} />
       </Routes>
     </BasicLayout>
   );

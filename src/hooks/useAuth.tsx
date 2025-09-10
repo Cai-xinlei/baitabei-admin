@@ -1,5 +1,7 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
 import defaultAvatar from '@/assets/images/default-avatar.jpg';
 import request from '@/services/request'
 interface User {
@@ -21,45 +23,15 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// 模拟用户数据
-const mockUsers = [
-  {
-    id: '1',
-    username: 'admin',
-    password: 'admin123',
-    email: 'admin@baitabei.com',
-    role: 'super_admin' as const,
-    realName: '系统管理员',
-    avatar: defaultAvatar
-  },
-  {
-    id: '2',
-    username: 'content',
-    password: 'content123',
-    email: 'content@baitabei.com',
-    role: 'content_manager' as const,
-    realName: '内容管理员',
-    avatar: defaultAvatar
-  },
-  {
-    id: '3',
-    username: 'judge',
-    password: 'judge123',
-    email: 'judge@baitabei.com',
-    role: 'judge' as const,
-    realName: '评委专家',
-    avatar: defaultAvatar
-  }
-];
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 检查本地存储的登录信息
     const savedUser = localStorage.getItem('baitabei_admin_user');
-    if (savedUser) {
+    if (savedUser && Object.keys(savedUser).length) {
       try {
         const parsedUser = JSON.parse(savedUser);
         setUser(parsedUser);
@@ -71,9 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (loginData) => {
-    const response = await request.post('/api/auth/login', loginData);
-    console.log(response, 'responseresponse');
-
+    const response: any = await request.post('/api/auth/login', loginData);
     const { message, success, data } = response;
     if (!success) {
       message.config({
@@ -83,7 +53,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         rtl: true,
         prefixCls: 'my-message',
       });
-      return false;
+      setIsAuthenticated(false);
+      return response;
 
     }
     const { accessToken, refreshToken } = data;
@@ -94,45 +65,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsAuthenticated(true);
     localStorage.setItem('baitabei_admin_user', JSON.stringify(data));
     return true;
-
-    // try {
-    //   // 模拟登录请求
-    //   const user = mockUsers.find(u => u.username === username && u.password === password);
-
-    //   if (user) {
-    //     const { password: _, ...userWithoutPassword } = user;
-    //     setUser(userWithoutPassword);
-    //     setIsAuthenticated(true);
-    //     localStorage.setItem('baitabei_admin_user', JSON.stringify(userWithoutPassword));
-    //     message.success('登录成功');
-    //     return true;
-    //   } else {
-    //     message.error('用户名或密码错误');
-    //     return false;
-    //   }
-    // } catch (error) {
-    //   message.error('登录失败，请稍后重试');
-    //   return false;
-    // }
-    // try {
-    //   // 模拟登录请求
-    //   const user = mockUsers.find(u => u.username === username && u.password === password);
-
-    //   if (user) {
-    //     const { password: _, ...userWithoutPassword } = user;
-    //     setUser(userWithoutPassword);
-    //     setIsAuthenticated(true);
-    //     localStorage.setItem('baitabei_admin_user', JSON.stringify(userWithoutPassword));
-    //     message.success('登录成功');
-    //     return true;
-    //   } else {
-    //     message.error('用户名或密码错误');
-    //     return false;
-    //   }
-    // } catch (error) {
-    //   message.error('登录失败，请稍后重试');
-    //   return false;
-    // }
   };
 
   const logout = () => {
@@ -141,8 +73,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('tokenType');
-    localStorage.removeItem('user');
+    localStorage.removeItem('baitabei_admin_user');
     message.success('退出成功');
+    navigate('/login')
   };
 
   const hasPermission = (permission: string): boolean => {

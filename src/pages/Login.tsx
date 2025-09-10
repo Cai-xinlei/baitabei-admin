@@ -24,7 +24,8 @@ const Login: React.FC = () => {
       const success = await login({ username: values.username, password: values.password });
       if (success) {
         message.success('登录成功')
-        navigate('/dashboard');
+        navigate('/projects');
+        // navigate('/dashboard');
       }
     } finally {
       setLoading(false);

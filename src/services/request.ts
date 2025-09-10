@@ -3,7 +3,8 @@ import { message } from 'antd';
 
 // 创建axios实例
 const service = axios.create({
-    baseURL: 'http://baitabei.hzyuanlian.cn', // 代理地址
+    // baseURL: 'http://www.baitabei.com', // 代理地址
+    baseURL: 'http://39.106.56.69:8080', // 代理地址
     timeout: 15000,
     withCredentials: true
 });
@@ -15,7 +16,7 @@ service.interceptors.request.use(
         const token = localStorage.getItem('token');
         if (token) {
             // 确保headers对象存在
-            config.headers = config.headers || {};
+            // config.headers = config.headers || {};
             config.headers.Authorization = `Bearer ${token}`;
         }
         return config;
@@ -29,19 +30,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     (response) => {
         // 直接返回完整响应数据，包含code, data, message等
-        console.log(response, '信息');
-        const { success, message: messageErr } = response.data || {};
-        if (!success) {
-            message.error(messageErr);
-            message.config({
-                top: 100,
-                duration: 2,
-                maxCount: 3,
-                rtl: true,
-                prefixCls: 'my-message',
-            });
-            return response.data;
-        }
         return response.data;
     },
     (error) => {
@@ -57,7 +45,7 @@ service.interceptors.response.use(
                 localStorage.removeItem('tokenType');
                 localStorage.removeItem('user');
                 // 跳转到登录页或执行其他操作
-                window.location.href = '/baitabei/login';
+                window.location.href = '/login';
                 message.error(response?.message ?? '登录已过期，请重新登录');
                 return Promise.reject(new Error('登录已过期，请重新登录'));
             }
@@ -83,7 +71,7 @@ export const request = {
     get: async (url, params = {}, config = {}) => {
         try {
             // 将params参数合并到config中，确保参数正确传递
-            const response = await service.get(url, { ...config, params });
+            const response: any = await service.get(url, { ...config, params });
             return response;
         } catch (error) {
             throw error;
@@ -91,7 +79,7 @@ export const request = {
     },
     post: async (url, data = {}, config = {}) => {
         try {
-            const response = await service.post(url, data, config);
+            const response: any = await service.post(url, data, config);
             return response;
         } catch (error) {
             throw error;
@@ -99,7 +87,7 @@ export const request = {
     },
     put: async (url, data = {}, config = {}) => {
         try {
-            const response = await service.put(url, data, config);
+            const response: any = await service.put(url, data, config);
             return response;
         } catch (error) {
             throw error;
@@ -107,7 +95,7 @@ export const request = {
     },
     delete: async (url, params = {}, config = {}) => {
         try {
-            const response = await service.delete(url, { ...config, params });
+            const response: any = await service.delete(url, { ...config, params });
             return response;
         } catch (error) {
             throw error;
