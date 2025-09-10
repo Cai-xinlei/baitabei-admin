@@ -57,6 +57,11 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
     //   label: '用户管理',
     // },
     {
+      key: '/track',
+      icon: <TeamOutlined />,
+      label: '项目管理',
+    },
+    {
       key: '/registrations',
       icon: <TeamOutlined />,
       label: '报名管理',

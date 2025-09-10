@@ -31,6 +31,11 @@ export const getProjectList = async (params) => {
     const response: any = await request.get('/api/project/page', { params });
     return response;
 };
+// 项目列表
+export const getPreview = async (params) => {
+    const response: any = await request.get('/api/file/preview', { params });
+    return response;
+};
 
 // 项目列表 - 删除
 export const deleteProject = async (projectId) => {

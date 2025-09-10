@@ -21,7 +21,7 @@ import {
 import dayjs from 'dayjs';
 import { taskIdMap, projectTypeOption } from '@/constants/index';
 import { detailProject } from '@/services/authService'
-
+import DocViewerPlus from './docViewerPlus'
 // import { DocViewerPlus } from 'react-doc-viewer-plus';
 import { useEffect, useState } from 'react';
 const { Title, Text, Paragraph } = Typography;
@@ -31,6 +31,8 @@ export default (props) => {
     const [trackJson, setTrackJson] = useState<any>({})
     const [trackId, setTrackId] = useState('')
     const [form] = Form.useForm();
+    console.log(trackJson, 'trackJsontrackJson');
+
     useEffect(() => {
         if (projectId) {
             detailProject(projectId).then(res => {
@@ -66,6 +68,13 @@ export default (props) => {
     //         />
     //     );
     // }
+
+    const renderViewFile = (data) => {
+        console.log(data, 'data');
+        const { name, url } = data
+        return <DocViewerPlus fileUrl={url} fileName={name} />
+
+    }
 
     const memberColumns = [
         {
@@ -105,6 +114,8 @@ export default (props) => {
             width: 200,
         },
     ];
+
+
 
     return (
         <Drawer
@@ -216,10 +227,14 @@ export default (props) => {
 
                     {/* 文件管理 */}
                     <Card title="项目文件">
-                        <Descriptions>
+                        <Descriptions column={2}>
                             <Descriptions.Item label="作品简介" span={2}>
                                 <Paragraph>{trackJson?.workDescription}</Paragraph>
                             </Descriptions.Item>
+                            <Descriptions.Item label="上传作品" span={2}>
+                                {trackJson?.attachments?.length > 0 && renderViewFile(trackJson?.attachments[0])}
+                            </Descriptions.Item>
+
                             {/* 文档文件 */}
                             {/* {trackJson?.files?.documents.length > 0 && (
                                 <div className="mb-6">

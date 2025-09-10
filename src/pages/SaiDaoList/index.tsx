@@ -31,7 +31,7 @@ const GridPage = () => {
         {
             id: 'communication_promotion',
             name: '非遗创新转化应用赛道',
-            image: 'https://static.baitabei.hzyuanlian.cn/feiyichuangxin.jpg',
+            image: 'https://static.baitabei.hzyuanlian.cn/trackList.jpg',
             num: 34,
 
         },
@@ -41,13 +41,15 @@ const GridPage = () => {
         <div className='gridPage'>
             <div className='cardGrid'>
                 {cardData.map((card) => (
-                    <div className='card'>
-                        <div className='imageContainer'>
-                            <img
-                                src={card?.image}
-                                alt={card?.name}
-                                className='cardImage'
-                            />
+                    <div className='card' key={card.id}>
+                        <div className='imageContainer'
+                            style={{
+                                backgroundImage: `url(https://static.baitabei.hzyuanlian.cn/trackList.jpg)`,
+                                backgroundSize: 'cover',
+                                width: '100%',
+                            }}
+                        >
+                            <div className='trackTitle'>{card.name}</div>
                             <div className='number'>{card.num}</div>
                         </div>
                     </div>

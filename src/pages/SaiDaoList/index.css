@@ -30,12 +30,20 @@
 
 }
 
+.trackTitle {
+    position: absolute;
+    font-size: 16px;
+    left: 20px;
+    top: 180px;
+    color: #111;
+}
+
 .number {
     position: absolute;
-    font-size: 25px;
+    font-size: 20px;
     left: 20px;
-    bottom: 20px;
-    color: #fff;
+    bottom: 11px;
+    color: #111;
 }
 
 .cardImage {
