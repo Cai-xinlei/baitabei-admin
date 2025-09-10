@@ -231,9 +231,9 @@ export default (props) => {
                             <Descriptions.Item label="作品简介" span={2}>
                                 <Paragraph>{trackJson?.workDescription}</Paragraph>
                             </Descriptions.Item>
-                            <Descriptions.Item label="上传作品" span={2}>
+                            {/* <Descriptions.Item label="上传作品" span={2}>
                                 {trackJson?.attachments?.length > 0 && renderViewFile(trackJson?.attachments[0])}
-                            </Descriptions.Item>
+                            </Descriptions.Item> */}
 
                             {/* 文档文件 */}
                             {/* {trackJson?.files?.documents.length > 0 && (

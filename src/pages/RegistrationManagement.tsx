@@ -334,13 +334,13 @@ const RegistrationManagement: React.FC = () => {
       {/* 页面标题 */}
       <div className="page-header">
         <Title level={2}>报名管理</Title>
-        <Text className="text-gray-600">
+        {/* <Text className="text-gray-600">
           管理和审核所有参赛项目的报名申请
-        </Text>
+        </Text> */}
       </div>
 
       {/* 统计卡片 */}
-      <Row gutter={[16, 16]}>
+      {/* <Row gutter={[16, 16]}>
         <Col xs={24} sm={6}>
           <Card>
             <Statistic title="总报名数" value={stats.total} prefix={<FileTextOutlined />} />
@@ -364,7 +364,7 @@ const RegistrationManagement: React.FC = () => {
             </div>
           </Card>
         </Col>
-      </Row>
+      </Row> */}
 
       {/* 操作区域 */}
       <Card>
@@ -401,11 +401,11 @@ const RegistrationManagement: React.FC = () => {
               <Option value="rejected">已拒绝</Option>
             </Select>
           </Space>
-          <Space>
+          {/* <Space>
             <Button icon={<ExportOutlined />} onClick={handleExport}>
               导出数据
             </Button>
-          </Space>
+          </Space> */}
         </div>
 
         <Table

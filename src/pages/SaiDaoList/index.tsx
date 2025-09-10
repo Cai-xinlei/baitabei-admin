@@ -43,12 +43,11 @@ const GridPage = () => {
                 {cardData.map((card) => (
                     <div className='card' key={card.id}>
                         <div className='imageContainer'
-                            style={{
-                                backgroundImage: `url(https://static.baitabei.hzyuanlian.cn/trackList.jpg)`,
-                                backgroundSize: 'cover',
-                                width: '100%',
-                            }}
+
                         >
+                            <img
+                                src={'https://static.baitabei.hzyuanlian.cn/trackList.jpg'}
+                            />
                             <div className='trackTitle'>{card.name}</div>
                             <div className='number'>{card.num}</div>
                         </div>
