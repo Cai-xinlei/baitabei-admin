@@ -31,11 +31,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // 检查本地存储的登录信息
     const savedUser = localStorage.getItem('baitabei_admin_user');
-    if (savedUser && Object.keys(savedUser).length) {
+    if (savedUser) {
       try {
         const parsedUser = JSON.parse(savedUser);
         setUser(parsedUser);
-        setIsAuthenticated(true);
       } catch (error) {
         localStorage.removeItem('baitabei_admin_user');
       }
@@ -44,17 +43,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (loginData) => {
     const response: any = await request.post('/api/auth/login', loginData);
-    const { message, success, data } = response;
+    const { success, data } = response;
+    console.log(response, 'responseresponse');
+
     if (!success) {
-      message.config({
-        top: 250,
-        duration: 2,
-        maxCount: 3,
-        rtl: true,
-        prefixCls: 'my-message',
-      });
-      setIsAuthenticated(false);
-      return response;
+      message.error(response.message)
+      return false;
 
     }
     const { accessToken, refreshToken } = data;
@@ -62,7 +56,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('token', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
     setUser(data)
-    setIsAuthenticated(true);
     localStorage.setItem('baitabei_admin_user', JSON.stringify(data));
     return true;
   };
