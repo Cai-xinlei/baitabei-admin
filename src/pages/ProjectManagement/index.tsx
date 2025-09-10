@@ -8,9 +8,6 @@ import {
   Tag,
   Card,
   Typography,
-  Row,
-  Col,
-  Statistic,
   Modal,
   message,
   Rate,
@@ -18,18 +15,13 @@ import {
 import {
   SearchOutlined,
   EyeOutlined,
-  EditOutlined,
   DeleteOutlined,
-  FileTextOutlined,
-  StarOutlined,
-  TrophyOutlined
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { getProjectList, deleteProject } from '@/services/authService'
 import { TRACKS, taskIdMap } from '@/constants/index'
 import ProjectDialog from './projectDialog'
 const { Title, Text } = Typography;
-const { Option } = Select;
 const { confirm } = Modal;
 
 interface Project {

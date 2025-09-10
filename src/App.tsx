@@ -11,6 +11,7 @@ import EvaluationSystem from './pages/EvaluationSystem';
 import ContentManagement from './pages/ContentManagement';
 import DataStatistics from './pages/DataStatistics';
 import SystemSettings from './pages/SystemSettings';
+import SaiDaoList from './pages/SaiDaoList';
 import useAuth from './hooks/useAuth';
 
 function AppContent() {
@@ -31,6 +32,7 @@ function AppContent() {
         {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
         <Route path="/" element={<Navigate to="/projects" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/track" element={<SaiDaoList />} />
         <Route path="/users" element={<UserManagement />} />
         <Route path="/registrations" element={<RegistrationManagement />} />
         <Route path="/projects" element={<ProjectManagement />} />
