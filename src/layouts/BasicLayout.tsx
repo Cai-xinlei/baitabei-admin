@@ -11,13 +11,8 @@ import {
   theme
 } from 'antd';
 import {
-  DashboardOutlined,
   UserOutlined,
-  TeamOutlined,
   ProjectOutlined,
-  CheckCircleOutlined,
-  FileTextOutlined,
-  BarChartOutlined,
   SettingOutlined,
   BellOutlined,
   LogoutOutlined,
@@ -27,6 +22,7 @@ import {
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import Login from '../pages/Login';
 
 const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
@@ -121,108 +117,110 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        width={256}
-        style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-        }}
-      >
-        <div className="flex items-center justify-center h-16 border-b border-gray-700">
-          <TrophyOutlined className="text-2xl text-white mr-2" />
-          {!collapsed && (
-            <Text className="text-white text-lg font-bold">
-              白塔杯管理后台
-            </Text>
-          )}
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          selectedKeys={[location.pathname]}
-          items={menuItems}
-          onClick={handleMenuClick}
-          style={{ borderRight: 0 }}
-        />
-      </Sider>
-      <Layout style={{ marginLeft: collapsed ? 80 : 256 }}>
-        <Header
+    <>
+      {location.pathname === '/login' ? <Login /> : <Layout style={{ minHeight: '100vh' }}>
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
+          width={256}
           style={{
-            padding: '0 24px',
-            background: colorBgContainer,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            borderBottom: '1px solid #f0f0f0'
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            bottom: 0,
           }}
         >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
+          <div className="flex items-center justify-center h-16 border-b border-gray-700">
+            <TrophyOutlined className="text-2xl text-white mr-2" />
+            {!collapsed && (
+              <Text className="text-white text-lg font-bold">
+                白塔杯管理后台
+              </Text>
+            )}
+          </div>
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={[location.pathname]}
+            items={menuItems}
+            onClick={handleMenuClick}
+            style={{ borderRight: 0 }}
           />
+        </Sider>
+        <Layout style={{ marginLeft: collapsed ? 80 : 256 }}>
+          <Header
+            style={{
+              padding: '0 24px',
+              background: colorBgContainer,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderBottom: '1px solid #f0f0f0'
+            }}
+          >
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: '16px',
+                width: 64,
+                height: 64,
+              }}
+            />
 
-          <Space size="middle">
-            <Badge count={3} size="small">
-              <Button
-                type="text"
-                icon={<BellOutlined style={{ fontSize: '16px' }} />}
-                style={{ border: 'none' }}
-              />
-            </Badge>
-
-            <Dropdown
-              menu={{ items: userMenuItems }}
-              placement="bottomRight"
-              arrow
-            >
-              <Space className="cursor-pointer hover:bg-gray-50 px-2 py-1 rounded">
-                <Avatar
-                  size="small"
-                  icon={<UserOutlined />}
-                  src={user?.avatar}
+            <Space size="middle">
+              <Badge count={3} size="small">
+                <Button
+                  type="text"
+                  icon={<BellOutlined style={{ fontSize: '16px' }} />}
+                  style={{ border: 'none' }}
                 />
-                <div className="hidden md:block">
-                  <div className="text-sm font-medium">{user?.realName}</div>
-                  <div className="text-xs text-gray-500">
-                    {user?.role === 'super_admin' && '超级管理员'}
-                    {user?.role === 'content_manager' && '内容管理员'}
-                    {user?.role === 'judge_manager' && '评委管理员'}
-                    {user?.role === 'judge' && '评委专家'}
-                  </div>
-                </div>
-              </Space>
-            </Dropdown>
-          </Space>
-        </Header>
+              </Badge>
 
-        <Content
-          style={{
-            margin: '24px',
-            padding: '24px',
-            background: colorBgContainer,
-            borderRadius: '8px',
-            boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)',
-            overflow: 'auto'
-          }}
-        >
-          {children}
-        </Content>
-      </Layout>
-    </Layout>
+              <Dropdown
+                menu={{ items: userMenuItems }}
+                placement="bottomRight"
+                arrow
+              >
+                <Space className="cursor-pointer hover:bg-gray-50 px-2 py-1 rounded">
+                  <Avatar
+                    size="small"
+                    icon={<UserOutlined />}
+                    src={user?.avatar}
+                  />
+                  <div className="hidden md:block">
+                    <div className="text-sm font-medium">{user?.realName}</div>
+                    <div className="text-xs text-gray-500">
+                      {user?.role === 'super_admin' && '超级管理员'}
+                      {user?.role === 'content_manager' && '内容管理员'}
+                      {user?.role === 'judge_manager' && '评委管理员'}
+                      {user?.role === 'judge' && '评委专家'}
+                    </div>
+                  </div>
+                </Space>
+              </Dropdown>
+            </Space>
+          </Header>
+
+          <Content
+            style={{
+              margin: '24px',
+              padding: '24px',
+              background: colorBgContainer,
+              borderRadius: '8px',
+              boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)',
+              overflow: 'auto'
+            }}
+          >
+            {children}
+          </Content>
+        </Layout>
+      </Layout>}
+    </>
   );
 };
 

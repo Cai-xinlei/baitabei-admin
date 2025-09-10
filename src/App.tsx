@@ -16,20 +16,19 @@ import useAuth from './hooks/useAuth';
 
 function AppContent() {
   const { isAuthenticated } = useAuth();
-  if (!isAuthenticated) {
-    return (
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    );
-  }
-  console.log(isAuthenticated, 'isAuthenticated');
-
+  // if (!isAuthenticated) {
+  //   return (
+  //     <Routes>
+  //       <Route path="/login" element={<Login />} />
+  //       <Route path="*" element={<Navigate to="/login" replace />} />
+  //     </Routes>
+  //   );
+  // }
   return (
     <BasicLayout>
       <Routes>
         {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Navigate to="/projects" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/track" element={<SaiDaoList />} />
