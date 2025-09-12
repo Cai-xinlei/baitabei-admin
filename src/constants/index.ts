@@ -3,32 +3,32 @@
 // 2025年白塔杯六大赛道
 export const TRACKS = [
     {
-        // value: 'cultural_innovation',
+        link: 'cultural_innovation',
         value: '',
         label: '全部',
     },
     {
-        // value: 'cultural_innovation',
+        link: 'cultural_innovation',
         value: 1,
         label: '文创产品开发赛道',
     },
     {
-        // value: 'creative_design',
+        link: 'creative_design',
         value: 2,
         label: '城市消费场景设计赛道',
     },
     {
-        // value: 'business_model',
+        link: 'business_model',
         value: 3,
         label: '文化消费内容创新赛道',
     },
     {
-        // value: 'social_innovation',
+        link: 'social_innovation',
         value: 4,
         label: '文商旅体科技创新应用赛道',
     },
     {
-        // value: 'communication_promotion',
+        link: 'communication_promotion',
         value: 5,
         label: '非遗创新转化应用赛道',
     },

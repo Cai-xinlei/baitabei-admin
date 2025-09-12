@@ -31,7 +31,7 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Navigate to="/projects" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/track" element={<SaiDaoList />} />
+        <Route path="/projectMessage" element={<SaiDaoList />} />
         <Route path="/users" element={<UserManagement />} />
         <Route path="/registrations" element={<RegistrationManagement />} />
         <Route path="/projects" element={<ProjectManagement />} />

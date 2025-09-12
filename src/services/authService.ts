@@ -41,6 +41,11 @@ export const getPreview = async (params) => {
     const response: any = await request.get('/api/file/preview', { params });
     return response;
 };
+// 项目列表
+export const getStatistics = async () => {
+    const response: any = await request.get('/api/statistics/tracks',);
+    return response;
+};
 
 // 项目列表 - 删除
 export const deleteProject = async (projectId) => {

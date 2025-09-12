@@ -18,7 +18,8 @@ import {
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  TrophyOutlined
+  TrophyOutlined,
+  TeamOutlined
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
@@ -52,11 +53,11 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
     //   icon: <UserOutlined />,
     //   label: '用户管理',
     // },
-    // {
-    //   key: '/track',
-    //   icon: <TeamOutlined />,
-    //   label: '项目管理',
-    // },
+    {
+      key: 'projectMessage',
+      icon: <TeamOutlined />,
+      label: '项目管理',
+    },
     // {
     //   key: '/registrations',
     //   icon: <TeamOutlined />,

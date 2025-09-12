@@ -32,7 +32,6 @@ const imageList = ['.jpg']
 const OptimizedDocumentPreview = ({ fileUrl, fileName }) => {
 
     const [previewUrl, setPreviewUrl] = useState('');
-    console.log(previewUrl, 'previewUrl');
     const [downloadUrl, setDownloadUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     // 内部辅助组件：文件预览
@@ -42,11 +41,8 @@ const OptimizedDocumentPreview = ({ fileUrl, fileName }) => {
     const FilePreview = () => {
         const parsedUrl = new URL(fileUrl);
         const pathname = parsedUrl.pathname;
-        console.log(pathname, 'pathname');
 
         const isImage = /\.(jpg|png) $ /i.test(pathname);
-        console.log(isImage, 'isImage');
-
         if (isImage) {
             return <img src={fileUrl} alt={fileName} style={{ maxWidth: '100%' }} />;
         }
@@ -115,9 +111,9 @@ const OptimizedDocumentPreview = ({ fileUrl, fileName }) => {
 
     return (
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-            {
+            {/* {
                 FilePreview()
-            }
+            } */}
 
             {/* 查看文档按钮 - 不支持预览时禁用并显示提示 */}
             <Tooltip

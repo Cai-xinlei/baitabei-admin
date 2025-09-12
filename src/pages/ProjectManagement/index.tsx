@@ -5,6 +5,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { getProjectList, deleteProject } from '@/services/authService';
 import { TRACKS, taskIdMap } from '@/constants/index';
 import ProjectDialog from './projectDialog'; // 确保此导入与ProjectDialog的导出方式匹配
+import { useSearchParams } from 'react-router-dom';
 
 // 类型定义
 interface TrackJson {
@@ -101,12 +102,21 @@ const ProjectManagement: React.FC = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [projectId, setProjectId] = useState<string | null>(null);
   const [searchText, setSearchText] = useState('');
-  const [trackFilter, setTrackFilter] = useState<string | null>(null);
-  const [statusFilter, setStatusFilter] = useState<string | null>(null);
+  // const [trackFilter, setTrackFilter] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<string | null>('');
   const [pageNum, setPageNum] = useState(1);
   const [total, setTotal] = useState(0);
   const [projects, setProjects] = useState<Project[]>([]);
-  console.log(drawerVisible, 'drawerVisible');
+  const [searchParams] = useSearchParams();
+  const trackIdParams = searchParams.get('trackId');
+
+  console.log(trackIdParams, '22');
+
+  // useEffect(() => {
+  //   if (trackIdParams) {
+  //     setTrackFilter(trackIdParams)
+  //   }
+  // }, [trackIdParams])
 
   // API调用函数
   const handleProjectList = () => {
@@ -116,7 +126,7 @@ const ProjectManagement: React.FC = () => {
       pageSize: 10,
       projectName: searchText || undefined,
       status: statusFilter || undefined,
-      trackId: trackFilter || undefined
+      trackId: trackIdParams || undefined
     };
 
     getProjectList(params)
@@ -141,7 +151,7 @@ const ProjectManagement: React.FC = () => {
   useEffect(() => {
     handleProjectList();
 
-  }, [searchText, trackFilter, statusFilter, pageNum]);
+  }, [searchText, trackIdParams, statusFilter, pageNum]);
 
   // 统计数据
   const stats = useMemo(() => {
@@ -319,13 +329,13 @@ const ProjectManagement: React.FC = () => {
           style={{ width: 300 }}
         />
 
-        <Select
+        {/* <Select
           placeholder="选择赛道"
           style={{ width: 300 }}
           onChange={value => setTrackFilter(value)}
           allowClear
           options={TRACKS}
-        />
+        /> */}
 
         <Select
           placeholder="选择状态"
