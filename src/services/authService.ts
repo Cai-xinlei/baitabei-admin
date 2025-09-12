@@ -24,6 +24,11 @@ export const createUser = async (params) => {
     const response: any = await request.put('/api/user/create', params);
     return response;
 };
+// 用户列表 -更新
+export const getFilePreview = async (params) => {
+    const response: any = await request.get('/api/file/preview', { params });
+    return response;
+};
 
 
 // 项目列表

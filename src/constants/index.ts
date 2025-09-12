@@ -4,6 +4,11 @@
 export const TRACKS = [
     {
         // value: 'cultural_innovation',
+        value: '',
+        label: '全部',
+    },
+    {
+        // value: 'cultural_innovation',
         value: 1,
         label: '文创产品开发赛道',
     },
