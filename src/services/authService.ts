@@ -14,6 +14,17 @@ export const deleteUser = async (userId) => {
     return response;
 };
 
+// 用户列表 - 项目详情
+export const detailUser = async (projectId) => {
+    const response: any = await request.get(`/api/user/${projectId}`);
+    return response;
+};
+// 用户列表 - 项目详情
+export const userRoles = async (projectId) => {
+    const response: any = await request.get(`/api/user/roles`);
+    return response;
+};
+
 // 用户列表 -更新
 export const updateUser = async (params) => {
     const response: any = await request.put('/api/user/update', params);

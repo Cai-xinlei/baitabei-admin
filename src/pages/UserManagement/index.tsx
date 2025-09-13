@@ -29,7 +29,7 @@ import {
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useAPI } from '@/hooks/useAPI';
-import { getUserList, deleteUser, updateUser, createUser } from '@/services/authService';
+import { getUserList, deleteUser, updateUser, createUser, detailUser } from '@/services/authService';
 import { roleList } from '@/constants/index'
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -48,6 +48,7 @@ interface User {
   lastLogin?: string;
   participationCount: number;
 }
+
 
 const UserManagement: React.FC = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -73,9 +74,9 @@ const UserManagement: React.FC = () => {
 
   const handleGetProjectList = () => {
     const params = {
-      page,
-      size: 10,
-      keyword: searchText,
+      pageNum: page,
+      pageSize: 10,
+      username: searchText,
       status: statusFilter,
       role: roleFilter
     }
@@ -96,6 +97,10 @@ const UserManagement: React.FC = () => {
 
   useEffect(() => {
     handleGetProjectList();
+    detailUser(11).then(res => {
+      console.log(res, 'www');
+
+    })
   }, [statusFilter, roleFilter, searchText, page])
 
   // 表格列配置
