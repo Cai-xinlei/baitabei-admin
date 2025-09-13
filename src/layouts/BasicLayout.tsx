@@ -19,7 +19,11 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   TrophyOutlined,
-  TeamOutlined
+  TeamOutlined,
+  CheckCircleOutlined,
+  BarChartOutlined,
+  DashboardOutlined,
+  FileTextOutlined
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';

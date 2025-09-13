@@ -29,8 +29,13 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
     (response) => {
+        if (response.data.code === 200) {
+            return response.data;
+        } else {
+            message.error(response.data.message);
+        }
+
         // 直接返回完整响应数据，包含code, data, message等
-        return response.data;
     },
     (error) => {
         const { response } = error;

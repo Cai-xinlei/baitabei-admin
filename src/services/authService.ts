@@ -47,6 +47,12 @@ export const getStatistics = async () => {
     return response;
 };
 
+// 项目列表
+export const dashboard = async () => {
+    const response: any = await request.get('/api/admin/dashboard',);
+    return response;
+};
+
 // 项目列表 - 删除
 export const deleteProject = async (projectId) => {
     const response: any = await request.delete(`/api/project/delete/${projectId}`);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Row,
   Col,
@@ -14,6 +14,7 @@ import {
   Button,
   Timeline
 } from 'antd';
+import { dashboard } from '@/services/authService'
 import {
   UserOutlined,
   ProjectOutlined,
@@ -69,6 +70,13 @@ const Dashboard: React.FC = () => {
     };
   }, { immediate: true });
 
+
+  useEffect(() => {
+    dashboard().then(res => {
+      console.log(res, 'wqwqwq');
+
+    })
+  }, [])
   // 统计数据
   const statsData = [
     {

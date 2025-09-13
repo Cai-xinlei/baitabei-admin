@@ -298,22 +298,22 @@ const UserManagement: React.FC = () => {
 
       {/* 统计卡片 */}
       <Row gutter={[16, 16]}>
-        <Col xs={24} sm={6}>
+        <Col xs={24} sm={8}>
           <Card>
             <Statistic title="用户总数" value={stats.total} prefix={<UserOutlined />} />
           </Card>
         </Col>
-        <Col xs={24} sm={6}>
+        {/* <Col xs={24} sm={6}>
           <Card>
             <Statistic title="活跃用户" value={stats.active} valueStyle={{ color: '#3f8600' }} />
           </Card>
-        </Col>
-        <Col xs={24} sm={6}>
+        </Col> */}
+        <Col xs={24} sm={8}>
           <Card>
             <Statistic title="参赛者" value={stats?.participants} valueStyle={{ color: '#1890ff' }} />
           </Card>
         </Col>
-        <Col xs={24} sm={6}>
+        <Col xs={24} sm={8}>
           <Card>
             <Statistic title="评委专家" value={stats.judges} valueStyle={{ color: '#722ed1' }} />
           </Card>
@@ -348,7 +348,7 @@ const UserManagement: React.FC = () => {
               <Option value="judge">评委</Option>
               <Option value="participant">参赛者</Option>
             </Select>
-            <Select
+            {/* <Select
               placeholder="选择状态"
               value={statusFilter}
               onChange={(value) => {
@@ -362,10 +362,10 @@ const UserManagement: React.FC = () => {
               <Option value="active">正常</Option>
               <Option value="inactive">非活跃</Option>
               <Option value="banned">已禁用</Option>
-            </Select>
+            </Select> */}
           </Space>
           <Space>
-            <Button
+            {/* <Button
               type="primary"
               icon={<PlusOutlined />}
               onClick={() => {
@@ -375,7 +375,7 @@ const UserManagement: React.FC = () => {
               }}
             >
               新增用户
-            </Button>
+            </Button> */}
             {/* <Button icon={<ExportOutlined />} onClick={handleExport}>
               导出数据
             </Button> */}
