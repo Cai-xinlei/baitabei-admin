@@ -52,11 +52,11 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
     //   icon: <DashboardOutlined />,
     //   label: '仪表板',
     // },
-    {
-      key: '/users',
-      icon: <UserOutlined />,
-      label: '用户管理',
-    },
+    // {
+    //   key: '/users',
+    //   icon: <UserOutlined />,
+    //   label: '用户管理',
+    // },
     {
       key: 'projectMessage',
       icon: <ProjectOutlined />,

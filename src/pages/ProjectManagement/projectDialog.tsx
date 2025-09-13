@@ -67,7 +67,7 @@ const EvaluationScore = ({ score, maxScore = 5 }) => {
 
     return (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Rate disabled defaultValue={score} max={maxScore} />
+            <Rate disabled defaultValue={score} />
             <Text style={{ marginLeft: 8 }}>{score}/{maxScore}</Text>
         </div>
     );
