@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Table, Button, Input, Select, Space, Tag, Typography, Modal, message } from 'antd';
-import { SearchOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { SearchOutlined, EyeOutlined, DeleteOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import { getProjectList, deleteProject } from '@/services/authService';
 import { TRACKS, taskIdMap } from '@/constants/index';
 import ProjectDialog from './projectDialog'; // 确保此导入与ProjectDialog的导出方式匹配
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 // 类型定义
 interface TrackJson {
@@ -99,6 +99,7 @@ const statusMap: StatusMapType = {
 
 const ProjectManagement: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const navigator = useNavigate();
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [projectId, setProjectId] = useState<string | null>(null);
   const [searchText, setSearchText] = useState('');
@@ -317,7 +318,10 @@ const ProjectManagement: React.FC = () => {
 
   return (
     <div className="project-management">
-      <Typography.Title level={2}>参数作品管理</Typography.Title>
+      <Typography.Title level={2} style={{ cursor: "pointer" }} onClick={() => navigator('/projectMessage')}>
+        <ArrowLeftOutlined />
+        {taskIdMap[trackIdParams] || "参赛作品管理"}
+      </Typography.Title>
       {/* <Typography.Text>管理和查看所有参赛项目的详细信息和文件</Typography.Text> */}
 
       <div style={{ margin: '20px 0', display: 'flex', gap: 16, alignItems: 'center' }}>

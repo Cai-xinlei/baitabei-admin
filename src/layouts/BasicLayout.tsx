@@ -55,7 +55,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
     // },
     {
       key: 'projectMessage',
-      icon: <TeamOutlined />,
+      icon: <ProjectOutlined />,
       label: '项目管理',
     },
     // {
@@ -63,11 +63,11 @@ const BasicLayout: React.FC<BasicLayoutProps> = ({ children }) => {
     //   icon: <TeamOutlined />,
     //   label: '报名管理',
     // },
-    {
-      key: '/projects',
-      icon: <ProjectOutlined />,
-      label: '参数作品管理',
-    },
+    // {
+    //   key: '/projects',
+    //   icon: <ProjectOutlined />,
+    //   label: '参赛作品管理',
+    // },
     // {
     //   key: '/evaluation',
     //   icon: <CheckCircleOutlined />,
