@@ -30,7 +30,7 @@ import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import { useAPI } from '@/hooks/useAPI';
 import { getUserList, deleteUser, updateUser, createUser, detailUser } from '@/services/authService';
-import { roleList } from '@/constants/index'
+import { roleList, TRACKSOptions, roleTagColor } from '@/constants/index'
 const { Title, Text } = Typography;
 const { Option } = Select;
 const { confirm } = Modal;
@@ -47,6 +47,7 @@ interface User {
   registrationDate: string;
   lastLogin?: string;
   participationCount: number;
+  roles: any[]
 }
 
 
@@ -61,6 +62,8 @@ const UserManagement: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [page, setPage] = useState<number>(1)
   const [form] = Form.useForm();
+  const watchRoleId = Form.useWatch('roleId', form);
+
   // 统计数据
   const stats = {
     total: total,
@@ -78,7 +81,7 @@ const UserManagement: React.FC = () => {
       pageSize: 10,
       username: searchText,
       status: statusFilter,
-      role: roleFilter
+      roleId: roleFilter
     }
     setLoading(true);
     getUserList(params).then(res => {
@@ -97,10 +100,10 @@ const UserManagement: React.FC = () => {
 
   useEffect(() => {
     handleGetProjectList();
-    detailUser(11).then(res => {
-      console.log(res, 'www');
+    // detailUser(11).then(res => {
+    //   console.log(res, 'www');
 
-    })
+    // })
   }, [statusFilter, roleFilter, searchText, page])
 
   // 表格列配置
@@ -138,21 +141,17 @@ const UserManagement: React.FC = () => {
       title: '角色',
       dataIndex: 'role',
       key: 'role',
-      render: (role: string) => (
-        <Tag color={
-          role === 'admin' ? 'red' :
-            role === 'judge' ? 'blue' : 'green'
-        }>
-          {role === 'admin' ? '管理员' :
-            role === 'judge' ? '评委' : '参赛者'}
-        </Tag>
-      ),
-      filters: [
-        { text: '管理员', value: 'admin' },
-        { text: '评委', value: 'judge' },
-        { text: '参赛者', value: 'participant' }
-      ],
-      onFilter: (value, record) => record.role === value,
+      render: (_, record) => {
+        const { roles = [] } = record;
+        if (roles?.length) {
+          return roles?.map(v => {
+            return <Tag color={roleTagColor[v.roleCode]}>
+              {v.roleName}
+            </Tag>
+          })
+        }
+        return '-'
+      },
     },
     // {
     //   title: '状态',
@@ -224,11 +223,11 @@ const UserManagement: React.FC = () => {
       ),
     },
   ];
-
   const handleEdit = (user: User) => {
     setEditingUser(user);
     form.setFieldsValue({
       ...user,
+      roleId: user.roles[0]?.roleCode || '',
       registrationDate: dayjs(user.registrationDate)
     });
     setDrawerVisible(true);
@@ -277,7 +276,7 @@ const UserManagement: React.FC = () => {
       setDrawerVisible(false);
       setEditingUser(null);
       form.resetFields();
-      // loadUsers(); // 重新加载用户列表
+      setPage(1); // 重新加载用户列表
     } catch (error) {
       console.error('保存用户失败:', error);
     }
@@ -330,7 +329,7 @@ const UserManagement: React.FC = () => {
         <div className="table-operations">
           <Space>
             <Input.Search
-              placeholder="搜索用户名、姓名或邮箱"
+              placeholder="搜索用户名"
               value={searchText}
               onChange={e => setSearchText(e.target.value)}
               onSearch={handleSearch}
@@ -346,13 +345,10 @@ const UserManagement: React.FC = () => {
                 // 筛选条件变化时自动搜索
                 setTimeout(handleSearch, 100);
               }}
-              style={{ width: 120 }}
+              style={{ width: 250 }}
               allowClear
-            >
-              <Option value="admin">管理员</Option>
-              <Option value="judge">评委</Option>
-              <Option value="participant">参赛者</Option>
-            </Select>
+              options={roleList}
+            />
             {/* <Select
               placeholder="选择状态"
               value={statusFilter}
@@ -370,7 +366,7 @@ const UserManagement: React.FC = () => {
             </Select> */}
           </Space>
           <Space>
-            {/* <Button
+            <Button
               type="primary"
               icon={<PlusOutlined />}
               onClick={() => {
@@ -380,7 +376,7 @@ const UserManagement: React.FC = () => {
               }}
             >
               新增用户
-            </Button> */}
+            </Button>
             {/* <Button icon={<ExportOutlined />} onClick={handleExport}>
               导出数据
             </Button> */}
@@ -405,7 +401,7 @@ const UserManagement: React.FC = () => {
             }
           }}
         />
-      </Card>
+      </Card >
 
       {/* 编辑抽屉 */}
       <Drawer
@@ -418,7 +414,7 @@ const UserManagement: React.FC = () => {
         }}
         open={drawerVisible}
         extra={
-          <Space>
+          < Space >
             <Button onClick={() => setDrawerVisible(false)}>取消</Button>
             <Button
               type="primary"
@@ -427,7 +423,7 @@ const UserManagement: React.FC = () => {
             >
               保存
             </Button>
-          </Space>
+          </ Space>
         }
       >
         <Form
@@ -476,6 +472,13 @@ const UserManagement: React.FC = () => {
           >
             <Select placeholder="请选择用户角色" options={roleList} />
           </Form.Item>
+          {watchRoleId !== 'PARTICIPANT' && <Form.Item
+            name="trackId"
+            label="赛道名称"
+            rules={[{ required: true, message: '请选择赛道名称' }]}
+          >
+            <Select placeholder="请选择赛道名称" options={TRACKSOptions} />
+          </Form.Item>}
           {/* 
           <Form.Item
             name="status"
@@ -496,8 +499,8 @@ const UserManagement: React.FC = () => {
             <DatePicker style={{ width: '100%' }} />
           </Form.Item> */}
         </Form>
-      </Drawer>
-    </div>
+      </Drawer >
+    </div >
   );
 };
 

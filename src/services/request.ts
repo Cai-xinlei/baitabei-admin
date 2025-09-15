@@ -4,7 +4,7 @@ import { message } from 'antd';
 // 创建axios实例
 const service = axios.create({
     // baseURL: 'http://www.baitabei.com', // 代理地址
-    // baseURL: 'http://39.106.56.69:8080', // 代理地址
+    baseURL: 'http://39.106.56.69:8080', // 代理地址
     timeout: 15000,
     withCredentials: true
 });

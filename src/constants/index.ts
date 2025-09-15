@@ -33,6 +33,35 @@ export const TRACKS = [
         label: '非遗创新转化应用赛道',
     },
 ];
+
+// 2025年白塔杯六大赛道
+export const TRACKSOptions = [
+    {
+        link: 'cultural_innovation',
+        value: 1,
+        label: '文创产品开发赛道',
+    },
+    {
+        link: 'creative_design',
+        value: 2,
+        label: '城市消费场景设计赛道',
+    },
+    {
+        link: 'business_model',
+        value: 3,
+        label: '文化消费内容创新赛道',
+    },
+    {
+        link: 'social_innovation',
+        value: 4,
+        label: '文商旅体科技创新应用赛道',
+    },
+    {
+        link: 'communication_promotion',
+        value: 5,
+        label: '非遗创新转化应用赛道',
+    },
+];
 export const taskIdMap = {
     1: '文创产品开发赛道',
     2: '城市消费场景设计赛道',
@@ -42,12 +71,24 @@ export const taskIdMap = {
 }
 
 export const roleList = [
-    { value: "1", label: "超级管理员" },
-    // { value: "2", label: "赛事管理员" },
-    { value: "3", label: "评审专家" },
-    // { value: "4", label: "普通管理员" },
-    { value: "5", label: "参赛者" },
-]
+    { value: "SUPER_ADMIN", label: "超级管理员" },
+    { value: "CONTEST_ADMIN", label: "评委管理员" },
+    { value: "EXPERT", label: "评审专家" },
+    // { value: "EXPERT", label: "普通管理员" },
+    { value: "PARTICIPANT", label: "参赛者" },
+];
+export const roleTagColor = {
+    "SUPER_ADMIN": "error",
+    "CONTEST_ADMIN": "success",
+    "EXPERT": "warning",
+    "PARTICIPANT": "processing"
+}
+// NSERT INTO `roles` (`role_code`, `role_name`, `description`, `sort_order`) VALUES
+// ('', '', '系统超级管理员，拥有所有权限', 1),
+// ('', '赛事管理员', '大赛管理员，负责内容管理和项目审核', 2),
+// ('EXPERT', '评审专家', '评审专家，负责项目评分和评审', 3),
+// ('GENERAL_ADMIN', '普通管理员', '普通管理员，负责日常运营', 4),
+// ('PARTICIPANT', '参赛者', '参赛用户，可以报名参赛', 5);
 
 export const projectTypeOption = [
     { label: '实践案例', value: "practical" },

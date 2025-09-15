@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // 用户列表
 export const getUserList = async (params) => {
-    const response: any = await request.get('/api/user/page', { params });
+    const response: any = await request.get(`/api/user/page`, { params });
     return response;
 };
 
@@ -32,7 +32,7 @@ export const updateUser = async (params) => {
 };
 // 用户列表 -更新
 export const createUser = async (params) => {
-    const response: any = await request.put('/api/user/create', params);
+    const response: any = await request.put('/api/user/add', params);
     return response;
 };
 // 用户列表 -更新
