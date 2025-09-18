@@ -29,7 +29,7 @@ function AppContent() {
       <Routes>
         {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Navigate to="/projects" replace />} />
+        <Route path="/" element={<Navigate to="/projectMessage" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/projectMessage" element={<SaiDaoList />} />
         <Route path="/users" element={<UserManagement />} />
@@ -40,7 +40,7 @@ function AppContent() {
         <Route path="/statistics" element={<DataStatistics />} />
         <Route path="/settings" element={<SystemSettings />} />
         {/* <Route path="*" element={<Navigate to="/dashboard" replace />} /> */}
-        <Route path="*" element={<Navigate to="/projects" replace />} />
+        <Route path="*" element={<Navigate to="/projectMessage" replace />} />
       </Routes>
     </BasicLayout>
   );

@@ -31,14 +31,6 @@
 
 }
 
-.trackTitle {
-    position: absolute;
-    font-size: 16px;
-    left: 20px;
-    top: 180px;
-    color: #111;
-}
-
 .number {
     position: absolute;
     font-size: 20px;
@@ -66,6 +58,28 @@
     margin: 0 0 8px 0;
     font-size: 18px;
     color: #333;
+}
+
+/* 轨道标题 - 核心优化：相对底部定位 */
+.trackTitle {
+    position: absolute;
+    font-size: clamp(14px, 3vw, 14px);
+    /* 响应式字体大小 */
+    left: 8px;
+    right: 8px;
+    bottom: 18%;
+    /* 相对于图片容器底部定位 */
+    color: #111;
+    margin: 0;
+    padding: 10px 14px;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* 半透明白色背景提高可读性 */
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .cardDescription {

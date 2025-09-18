@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './index.css';
 import { getStatistics } from "@/services/authService";
-import { TRACKS, taskIdMap } from '@/constants/index';
+import { taskIdMap } from '@/constants/index';
 import { useNavigate } from 'react-router-dom';
 
 const GridPage = () => {
@@ -10,7 +10,7 @@ const GridPage = () => {
     useEffect(() => {
         getStatistics().then(res => {
             if (res.code === 200) {
-                setStatistics(res?.data?.projectsByTrack)
+                setStatistics(res?.data)
             }
         })
     }, [])
