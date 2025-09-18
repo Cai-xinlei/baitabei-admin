@@ -227,7 +227,7 @@ const UserManagement: React.FC = () => {
     setEditingUser(user);
     form.setFieldsValue({
       ...user,
-      roleId: user.roles[0]?.roleCode || '',
+      roleId: user.roles[0]?.id || '',
       registrationDate: dayjs(user.registrationDate)
     });
     setDrawerVisible(true);
@@ -255,12 +255,13 @@ const UserManagement: React.FC = () => {
   };
 
   const handleSave = async (values: any) => {
+    console.log(values, '222');
+
     try {
       const userData = {
         ...values,
         registrationDate: values.registrationDate?.format ? values.registrationDate.format('YYYY-MM-DD') : values.registrationDate
       };
-
       if (editingUser) {
         // 编辑用户
         updateUser({ ...userData }).then(res => {
@@ -287,7 +288,9 @@ const UserManagement: React.FC = () => {
   };
 
   // 当搜索条件变化时重新加载数据
-  const handleSearch = () => {
+  const handleSearch = (value) => {
+    console.log(value, '22');
+
     // loadUsers();
   };
   return (
@@ -331,11 +334,15 @@ const UserManagement: React.FC = () => {
             <Input.Search
               placeholder="搜索用户名"
               value={searchText}
-              onChange={e => setSearchText(e.target.value)}
+              onChange={e => {
+                setSearchText(e.target.value);
+                setPage(1);
+              }}
               onSearch={handleSearch}
               onPressEnter={handleSearch}
               style={{ width: 250 }}
               enterButton
+              allowClear
             />
             <Select
               placeholder="选择角色"
@@ -343,7 +350,8 @@ const UserManagement: React.FC = () => {
               onChange={(value) => {
                 setRoleFilter(value);
                 // 筛选条件变化时自动搜索
-                setTimeout(handleSearch, 100);
+                setPage(1); // 重新加载用户列表
+                // setTimeout(handleSearch, 100);
               }}
               style={{ width: 250 }}
               allowClear
@@ -393,6 +401,7 @@ const UserManagement: React.FC = () => {
           pagination={{
             total: total,
             pageSize: 10,
+            current: page,
             showSizeChanger: true,
             showQuickJumper: true,
             showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条，共 ${total} 条`,
@@ -472,7 +481,7 @@ const UserManagement: React.FC = () => {
           >
             <Select placeholder="请选择用户角色" options={roleList} />
           </Form.Item>
-          {watchRoleId !== 'PARTICIPANT' && <Form.Item
+          {watchRoleId !== 5 && <Form.Item
             name="trackId"
             label="赛道名称"
             rules={[{ required: true, message: '请选择赛道名称' }]}

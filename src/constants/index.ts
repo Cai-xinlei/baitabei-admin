@@ -71,11 +71,16 @@ export const taskIdMap = {
 }
 
 export const roleList = [
-    { value: "SUPER_ADMIN", label: "超级管理员" },
-    { value: "CONTEST_ADMIN", label: "评委管理员" },
-    { value: "EXPERT", label: "评审专家" },
+    // { value: "SUPER_ADMIN", label: "超级管理员" },
+    // { value: "CONTEST_ADMIN", label: "评委管理员" },
+    // { value: "EXPERT", label: "评审专家" },
+    // // { value: "EXPERT", label: "普通管理员" },
+    // { value: "PARTICIPANT", label: "参赛者" },
+    { value: 1, label: "超级管理员" },
+    { value: 2, label: "评委管理员" },
+    { value: 3, label: "评审专家" },
     // { value: "EXPERT", label: "普通管理员" },
-    { value: "PARTICIPANT", label: "参赛者" },
+    { value: 5, label: "参赛者" },
 ];
 export const roleTagColor = {
     "SUPER_ADMIN": "error",

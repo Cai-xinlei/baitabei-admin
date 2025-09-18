@@ -54,7 +54,7 @@ export const getPreview = async (params) => {
 };
 // 项目列表
 export const getStatistics = async () => {
-    const response: any = await request.get('/api/statistics/tracks',);
+    const response: any = await request.get('/api/statistics/user/tracks',);
     return response;
 };
 
